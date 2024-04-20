@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserController {
     @Autowired
     UserService userService;
-
     @Autowired
     AuthenticationService authenticationService;
 
@@ -26,7 +25,7 @@ public class UserController {
     public ResponseEntity<JwtAuthResponse> signUp(@RequestBody SignUp signUpReq){
         return ResponseEntity.ok(authenticationService.signUp(signUpReq));
     }
-    @PostMapping("/singIn")
+    @PostMapping("/login")
     public ResponseEntity<JwtAuthResponse> signIn(@RequestBody SignIn signInReq){
         return ResponseEntity.ok(authenticationService.signIn(signInReq));
     }

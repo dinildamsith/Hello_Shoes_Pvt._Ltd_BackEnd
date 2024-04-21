@@ -24,4 +24,10 @@ public class CustomerController {
         return "Save";
     }
 
+    @GetMapping(value = "search/{id}")
+    public CustomerDto searchCustomer(@PathVariable ("id") String searchCustomerId){
+        CustomerDto customerDto = customerService.searchCustomer(searchCustomerId);
+        return customerDto;
+    }
+
 }

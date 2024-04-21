@@ -25,7 +25,7 @@ public class DataConvert {
         return modelMapper.map(customerEntity, CustomerDto.class);
     }
 
-    public CustomerEntity customerDyoConvertCustomerEntity(CustomerDto customerDto){
+    public CustomerEntity customerDtoConvertCustomerEntity(CustomerDto customerDto){
         return modelMapper.map(customerDto, CustomerEntity.class);
     }
 }

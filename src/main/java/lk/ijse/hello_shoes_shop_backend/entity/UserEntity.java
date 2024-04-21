@@ -22,14 +22,18 @@ public class UserEntity implements UserDetails {
     @Id
     private String email;
     private String password;
+    private String name;
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    public Role getRole() {
+        return role;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        Set< GrantedAuthority> authorities = new HashSet<>();
-        authorities.add(new SimpleGrantedAuthority("ROLE" +role.name()));
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        authorities.add(new SimpleGrantedAuthority(role.name()));
         return authorities;
     }
 

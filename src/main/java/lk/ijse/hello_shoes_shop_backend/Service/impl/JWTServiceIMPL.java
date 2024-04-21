@@ -7,6 +7,7 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 
 import lk.ijse.hello_shoes_shop_backend.Service.JWTService;
+import lk.ijse.hello_shoes_shop_backend.entity.UserEntity;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -15,12 +16,17 @@ import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.function.Function;
 
 @Service
 public class JWTServiceIMPL implements JWTService {
+    private long accessTokenValidity = 1*60*24;
+
     @Value("${token.key}")
     private String jwtKey;
+
+
     @Override
     public String extractUserName(String token) {
         return extractClaim(token,Claims::getSubject);
@@ -28,8 +34,8 @@ public class JWTServiceIMPL implements JWTService {
 
 
     @Override
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(),userDetails);
+    public String generateToken(UserEntity userEntity) {
+        return generateToken(new HashMap<>(),userEntity);
     }
 
     @Override
@@ -44,25 +50,21 @@ public class JWTServiceIMPL implements JWTService {
         return claimResolve.apply(allClaims);
     }
 
-    private String generateToken(Map<String,Object> extractClaims, UserDetails userDetails){
-        extractClaims.put("role",userDetails.getAuthorities());
-        Date now = new Date();
-        Date expire = new Date(now.getTime() + 1000 * 600);
-        Date refreshExpire = new Date(now.getTime() + 1000 * 600 * 600);
+    private String generateToken(Map<String,Object> extractClaims, UserEntity userEntity){
+        Claims claims = Jwts.claims().setSubject(userEntity.getEmail());
+        claims.put("name",userEntity.getName());
+        claims.put("role",userEntity.getRole());
 
-        String accessToken = Jwts.builder().setClaims(extractClaims)
-                .setSubject(userDetails.getUsername())
-                .setIssuedAt(now)
-                .setExpiration(expire)
-                .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
+        Date tokenCreateTime = new Date();
+        Date tokenValidity = new Date(tokenCreateTime.getTime() + TimeUnit.MINUTES.toMillis(accessTokenValidity));
+        return Jwts.builder()
+                .setClaims(claims)
+                .setExpiration(tokenValidity)
+                .signWith(SignatureAlgorithm.HS256, jwtKey)
+                .compact();
 
 
-        String refreshToken = Jwts.builder().setClaims(extractClaims)
-                .setSubject(userDetails.getUsername())
-                .setExpiration(refreshExpire)
-                .signWith(getSignKey(), SignatureAlgorithm.HS256).compact();
 
-        return accessToken + " : "+ refreshToken;
 
     }
 

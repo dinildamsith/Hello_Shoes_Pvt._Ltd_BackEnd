@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/supplier")
 @RequiredArgsConstructor
@@ -13,6 +15,14 @@ public class SupplierController {
 
     @Autowired
     SupplierService supplierService;
+
+
+    @GetMapping
+    @RequestMapping("/getAllSuppliers")
+    public List<SupplierDto> getAllSuppliers(){
+        List<SupplierDto> allSuppliers = supplierService.getAllSuppliers();
+        return allSuppliers;
+    }
 
     @PostMapping
     @RequestMapping("/save")

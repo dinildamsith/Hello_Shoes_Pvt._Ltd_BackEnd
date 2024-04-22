@@ -44,4 +44,7 @@ public class DataConvert {
     public SupplierDto supplierEntityConvertSupplierDto(SupplierEntity supplierEntity){
         return modelMapper.map(supplierEntity, SupplierDto.class);
     }
+    public List<SupplierDto> supplierEntityListConvertSupplierDtoList(List<SupplierEntity> supplierEntityList){
+        return modelMapper.map(supplierEntityList, List.class);
+    }
 }

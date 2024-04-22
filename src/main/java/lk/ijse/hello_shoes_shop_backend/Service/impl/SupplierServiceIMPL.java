@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -21,6 +22,12 @@ public class SupplierServiceIMPL implements SupplierService {
     SupplierRepo supplierRepo;
     @Autowired
     DataConvert dataConvert;
+
+    @Override
+    public List<SupplierDto> getAllSuppliers() {
+        return dataConvert.supplierEntityListConvertSupplierDtoList(supplierRepo.findAll());
+    }
+
     @Override
     public void saveSupplier(SupplierDto supplierDto) {
         supplierRepo.save(dataConvert.supplierDtoConvertSupplierEntity(supplierDto));

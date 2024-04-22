@@ -30,4 +30,9 @@ public class CustomerController {
         return customerDto;
     }
 
+    @PutMapping(value = "update/{id}")
+    public void updateCustomer(@PathVariable ("id") String updateId , @RequestBody CustomerDto customerDto){
+       customerService.updateCustomer(updateId,customerDto);
+    }
+
 }

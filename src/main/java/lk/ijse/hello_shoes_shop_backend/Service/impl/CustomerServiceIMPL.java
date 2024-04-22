@@ -40,4 +40,29 @@ public class CustomerServiceIMPL implements CustomerService {
         }
         return null;
     }
+
+    @Override
+    public String updateCustomer(String updateCustomerId, CustomerDto updateCustomerDetailsDto) {
+
+        CustomerEntity updateCustomer = customerRepo.findById(updateCustomerId).orElse(null);
+
+        if (updateCustomer != null){
+            updateCustomer.setCustomerName(updateCustomerDetailsDto.getCustomerName());
+            updateCustomer.setCustomerGender(updateCustomerDetailsDto.getCustomerGender());
+            updateCustomer.setCustomerJoinDate(updateCustomer.getCustomerJoinDate());
+            updateCustomer.setBirthDay(updateCustomer.getBirthDay());
+            updateCustomer.setAddressLine1(updateCustomerDetailsDto.getAddressLine1());
+            updateCustomer.setAddressLine2(updateCustomerDetailsDto.getAddressLine2());
+            updateCustomer.setAddressLine3(updateCustomerDetailsDto.getAddressLine3());
+            updateCustomer.setAddressLine4(updateCustomerDetailsDto.getAddressLine4());
+            updateCustomer.setAddressLine5(updateCustomerDetailsDto.getAddressLine5());
+            updateCustomer.setContactNumber(updateCustomerDetailsDto.getContactNumber());
+            updateCustomer.setEmail(updateCustomerDetailsDto.getEmail());
+
+            customerRepo.save(updateCustomer);
+        }else{
+            return "This Id Have Not Customer";
+        }
+        return null;
+    }
 }

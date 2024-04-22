@@ -27,4 +27,12 @@ public class SupplierController {
         return searchSupplierDto;
     }
 
+    @PutMapping
+    @RequestMapping("/update/{id}")
+    public String updateSupplier(@PathVariable("id") String updateSupplierId , @RequestBody SupplierDto supplierDto){
+        String updateSupplier = supplierService.updateSupplier(updateSupplierId, supplierDto);
+        return updateSupplier;
+    }
+
+
 }

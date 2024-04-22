@@ -5,4 +5,5 @@ import lk.ijse.hello_shoes_shop_backend.Dto.SupplierDto;
 public interface SupplierService {
     void saveSupplier(SupplierDto supplierDto);
     SupplierDto searchSupplier(String searchSupplierId);
+    String updateSupplier(String updateSupplierId, SupplierDto supplierDto);
 }

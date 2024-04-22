@@ -61,4 +61,16 @@ public class SupplierServiceIMPL implements SupplierService {
         }
 
     }
+
+    @Override
+    public String deleteSupplier(String deleteSupplierId) {
+        boolean existsBySupplierId = supplierRepo.existsById(deleteSupplierId);
+        if (existsBySupplierId){
+            supplierRepo.deleteById(deleteSupplierId);
+            return "Supplier DELETED";
+        }else {
+           return  "This Id Have No Customer";
+        }
+
+    }
 }

@@ -6,4 +6,5 @@ public interface SupplierService {
     void saveSupplier(SupplierDto supplierDto);
     SupplierDto searchSupplier(String searchSupplierId);
     String updateSupplier(String updateSupplierId, SupplierDto supplierDto);
+    String deleteSupplier(String deleteSupplierId);
 }

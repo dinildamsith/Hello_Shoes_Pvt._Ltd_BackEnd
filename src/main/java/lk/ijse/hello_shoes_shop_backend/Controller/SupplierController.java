@@ -34,5 +34,12 @@ public class SupplierController {
         return updateSupplier;
     }
 
+    @DeleteMapping
+    @RequestMapping("/delete/{id}")
+    public String deleteSupplier(@PathVariable ("id") String deleteSupplierId){
+        String deleteSupplier = supplierService.deleteSupplier(deleteSupplierId);
+        return deleteSupplier;
+    }
+
 
 }

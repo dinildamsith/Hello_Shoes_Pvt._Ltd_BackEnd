@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,6 +23,12 @@ public class CustomerServiceIMPL implements CustomerService {
     DataConvert dataConvert;
     @Autowired
     CustomerRepo customerRepo;
+
+    @Override
+    public List<CustomerDto> getAllCustomers() {
+        List<CustomerDto> allCustomers = dataConvert.customerEntityListConvertCustomerDtoList(customerRepo.findAll());
+        return allCustomers;
+    }
 
     @Override
     public void saveCustomer(CustomerDto customerDto) {

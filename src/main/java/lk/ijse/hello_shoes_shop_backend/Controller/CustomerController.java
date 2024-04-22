@@ -1,11 +1,14 @@
 package lk.ijse.hello_shoes_shop_backend.Controller;
 
 import lk.ijse.hello_shoes_shop_backend.Dto.CustomerDto;
+import lk.ijse.hello_shoes_shop_backend.Dto.SupplierDto;
 import lk.ijse.hello_shoes_shop_backend.Service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/customer")
@@ -15,6 +18,13 @@ public class CustomerController {
     @Autowired
     CustomerService customerService;
 
+
+    @RequestMapping("/getAllCustomer")
+    @GetMapping
+    public List<CustomerDto> getAllCustomers(){
+        List<CustomerDto> allCustomers = customerService.getAllCustomers();
+        return allCustomers;
+    }
 
    @ResponseStatus(HttpStatus.CREATED)
    @RequestMapping("/save")

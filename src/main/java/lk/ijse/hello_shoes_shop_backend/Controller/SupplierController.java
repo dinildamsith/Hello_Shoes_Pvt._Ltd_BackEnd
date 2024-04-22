@@ -20,4 +20,11 @@ public class SupplierController {
         supplierService.saveSupplier(supplierDto);
     }
 
+    @GetMapping
+    @RequestMapping("/search/{id}")
+    public SupplierDto searchSupplier(@PathVariable ("id") String searchSupplierId){
+        SupplierDto searchSupplierDto = supplierService.searchSupplier(searchSupplierId);
+        return searchSupplierDto;
+    }
+
 }

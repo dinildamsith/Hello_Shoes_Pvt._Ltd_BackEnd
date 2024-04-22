@@ -65,4 +65,16 @@ public class CustomerServiceIMPL implements CustomerService {
         }
         return null;
     }
+
+    @Override
+    public String deleteCustomer(String deleteCustomerId) {
+        boolean checkIdHaveCustomer = customerRepo.existsById(deleteCustomerId);
+
+        if (checkIdHaveCustomer){
+            customerRepo.deleteById(deleteCustomerId);
+        }else {
+            return "This Id Have No Customer";
+        }
+        return null;
+    }
 }

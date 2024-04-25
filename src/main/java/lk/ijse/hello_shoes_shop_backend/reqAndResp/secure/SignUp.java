@@ -15,4 +15,6 @@ public class SignUp {
     private String email;
     private String password;
     private Role role;
+    private String name;
+    private String emp_Id;
 }

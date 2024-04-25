@@ -1,9 +1,11 @@
 package lk.ijse.hello_shoes_shop_backend.convert;
 
 import lk.ijse.hello_shoes_shop_backend.Dto.CustomerDto;
+import lk.ijse.hello_shoes_shop_backend.Dto.EmployeeDto;
 import lk.ijse.hello_shoes_shop_backend.Dto.SupplierDto;
 import lk.ijse.hello_shoes_shop_backend.Dto.UserDto;
 import lk.ijse.hello_shoes_shop_backend.entity.CustomerEntity;
+import lk.ijse.hello_shoes_shop_backend.entity.EmployeeEntity;
 import lk.ijse.hello_shoes_shop_backend.entity.SupplierEntity;
 import lk.ijse.hello_shoes_shop_backend.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
@@ -47,4 +49,16 @@ public class DataConvert {
     public List<SupplierDto> supplierEntityListConvertSupplierDtoList(List<SupplierEntity> supplierEntityList){
         return modelMapper.map(supplierEntityList, List.class);
     }
+
+    // Employee Data
+    public EmployeeEntity employeeDtoConvertEmployeeEntity(EmployeeDto employeeDto){
+        return modelMapper.map(employeeDto,EmployeeEntity.class);
+    }
+    public EmployeeDto employeeEntityConvertEmployeeDto(EmployeeEntity employeeEntity){
+        return modelMapper.map(employeeEntity,EmployeeDto.class);
+    }
+    public List<EmployeeDto> employeeEntityListConvertEmployeeDtoList(List<EmployeeEntity> employeeEntityList){
+        return modelMapper.map(employeeEntityList, List.class);
+    }
+
 }

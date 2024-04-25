@@ -45,9 +45,16 @@ public class AuthenticationServiceIMPL implements AuthenticationService {
     public JwtAuthResponse signUp(SignUp signUp) {
         UserDto userDTO = UserDto.builder()
                 .email(signUp.getEmail())
+                .name(signUp.getName())
+                .emp_Id(signUp.getEmp_Id())
                 .role(Role.valueOf(String.valueOf(signUp.getRole())))
                 .password(passwordEncoder.encode(signUp.getPassword()))
                 .build();
+
+
+
+
+
         UserEntity save = userRepo.save(dataConvert.userDtoConvertUserEntity(userDTO));
         String s = jwtService.generateToken(save);
         return JwtAuthResponse.builder().token(s).build();

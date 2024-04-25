@@ -21,10 +21,15 @@ import java.util.Set;
 public class UserEntity implements UserDetails {
     @Id
     private String email;
-    private String password;
     private String name;
+    private String password;
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
+    private EmployeeEntity employeeEntity;
+
+
+
 
     public Role getRole() {
         return role;
@@ -61,4 +66,10 @@ public class UserEntity implements UserDetails {
     public boolean isEnabled() {
         return true;
     }
+
+
+
+
+
+
 }

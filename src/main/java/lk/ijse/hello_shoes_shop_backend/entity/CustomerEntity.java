@@ -35,4 +35,5 @@ public class CustomerEntity implements SuperEntity{
     private String email;
     private Timestamp recentPurchaseDate;
 
+
 }

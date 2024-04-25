@@ -17,5 +17,5 @@ public class UserDto implements SuperDto{
     private String password;
     private Role role;
     private String emp_Id;
-    private EmployeeEntity employeeEntity;
+//    private EmployeeEntity employeeEntity;
 }

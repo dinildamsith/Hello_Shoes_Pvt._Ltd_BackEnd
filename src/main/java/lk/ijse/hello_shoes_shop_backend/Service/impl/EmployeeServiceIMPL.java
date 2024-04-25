@@ -116,6 +116,17 @@ public class EmployeeServiceIMPL implements EmployeeService {
     }
 
     @Override
+    public EmployeeDto searchEmployee(String searchEmployeeId) {
+        EmployeeEntity employeeEntity = employeeRepo.findById(searchEmployeeId).orElse(null);
+        if (employeeEntity !=null){
+            return dataConvert.employeeEntityConvertEmployeeDto(employeeEntity);
+        }else {
+            System.out.println("this id have no supplier");
+        }return null;
+
+    }
+
+    @Override
     public void updateEmployee(String updateEmpId, EmployeeDto employeeDto) {
         EmployeeEntity employeeEntity = employeeRepo.findById(updateEmpId).orElse(null);
         UserEntity userEntity = userRepo.findByEmail(employeeEntity.getEmail()).orElse(null);

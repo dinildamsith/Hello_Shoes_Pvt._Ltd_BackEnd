@@ -44,6 +44,13 @@ public class EmployeeController {
         return allEmployees;
     }
 
+    @GetMapping
+    @RequestMapping("/search/{id}")
+    EmployeeDto searchEmployee(@PathVariable ("id") String searchEmployeeId){
+        EmployeeDto employeeDto = employeeService.searchEmployee(searchEmployeeId);
+        return employeeDto;
+    }
+
     @RequestMapping("/save")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     String saveEmployee(@RequestPart("employee_code") String emp_code,

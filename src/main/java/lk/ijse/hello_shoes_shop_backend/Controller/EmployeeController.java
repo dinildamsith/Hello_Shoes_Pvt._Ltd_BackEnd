@@ -7,6 +7,7 @@ import lk.ijse.hello_shoes_shop_backend.Service.UserService;
 import lk.ijse.hello_shoes_shop_backend.entity.UserEntity;
 import lk.ijse.hello_shoes_shop_backend.enums.Gender;
 import lk.ijse.hello_shoes_shop_backend.enums.Role;
+import lk.ijse.hello_shoes_shop_backend.util.UtilMatters;
 import lombok.RequiredArgsConstructor;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -32,6 +33,7 @@ public class EmployeeController {
     UserService userService;
     @Autowired
     UserRepo userRepo;
+
 
     @RequestMapping("/save")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
@@ -68,11 +70,12 @@ public class EmployeeController {
         Date joinDateDate = java.sql.Date.valueOf(parsedJoinDate);
 
 
+        String picConvertBase64 = UtilMatters.convertBase64(emp_pic);
 
         EmployeeDto employeeDto  = new EmployeeDto();
         employeeDto.setEmployeeCode(emp_code);
         employeeDto.setEmployeeName(emp_name);
-        employeeDto.setEmployeePic(emp_pic);
+        employeeDto.setEmployeePic(picConvertBase64);
         employeeDto.setGender(Gender.valueOf(gender));
         employeeDto.setStatus(status);
         employeeDto.setDesignation(designation);

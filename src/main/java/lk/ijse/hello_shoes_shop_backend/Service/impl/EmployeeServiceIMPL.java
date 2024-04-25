@@ -100,7 +100,7 @@ public class EmployeeServiceIMPL implements EmployeeService {
 //            userService.saveUser(userDto);
 
 
-            return token;
+            return token +"\n"+ password +"\n"+ employeeDto.getEmail();
         } else {
             System.out.println("Employee save unsuccessful");
         }

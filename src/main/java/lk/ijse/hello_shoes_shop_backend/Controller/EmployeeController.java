@@ -4,6 +4,7 @@ import lk.ijse.hello_shoes_shop_backend.Dao.UserRepo;
 import lk.ijse.hello_shoes_shop_backend.Dto.EmployeeDto;
 import lk.ijse.hello_shoes_shop_backend.Service.EmployeeService;
 import lk.ijse.hello_shoes_shop_backend.Service.UserService;
+import lk.ijse.hello_shoes_shop_backend.entity.EmployeeEntity;
 import lk.ijse.hello_shoes_shop_backend.entity.UserEntity;
 import lk.ijse.hello_shoes_shop_backend.enums.Gender;
 import lk.ijse.hello_shoes_shop_backend.enums.Role;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.List;
 
 @RestController
 @RequestMapping( "/employee")
@@ -34,6 +36,13 @@ public class EmployeeController {
     @Autowired
     UserRepo userRepo;
 
+
+    @RequestMapping("/allEmployees")
+    @GetMapping
+    List<EmployeeDto> getAllEmployees(){
+        List<EmployeeDto> allEmployees = employeeService.getAllEmployees();
+        return allEmployees;
+    }
 
     @RequestMapping("/save")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)

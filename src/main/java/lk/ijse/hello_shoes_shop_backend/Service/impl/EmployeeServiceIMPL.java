@@ -15,6 +15,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 @Transactional
 @RequiredArgsConstructor
@@ -32,6 +35,13 @@ public class EmployeeServiceIMPL implements EmployeeService {
     UserRepo userRepo;
     @Autowired
     DataConvert dataConvert;
+
+    @Override
+    public List<EmployeeDto> getAllEmployees() {
+        List<EmployeeEntity> allEmployees = employeeRepo.findAll();
+        return dataConvert.employeeEntityListConvertEmployeeDtoList(allEmployees);
+
+    }
 
     @Override
     public String saveEmployee(EmployeeDto employeeDto) {

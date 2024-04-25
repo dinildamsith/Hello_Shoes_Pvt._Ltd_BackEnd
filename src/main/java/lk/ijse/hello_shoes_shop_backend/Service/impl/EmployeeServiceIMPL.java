@@ -3,24 +3,17 @@ package lk.ijse.hello_shoes_shop_backend.Service.impl;
 import lk.ijse.hello_shoes_shop_backend.Dao.EmployeeRepo;
 import lk.ijse.hello_shoes_shop_backend.Dao.UserRepo;
 import lk.ijse.hello_shoes_shop_backend.Dto.EmployeeDto;
-import lk.ijse.hello_shoes_shop_backend.Dto.UserDto;
 import lk.ijse.hello_shoes_shop_backend.Service.AuthenticationService;
 import lk.ijse.hello_shoes_shop_backend.Service.EmployeeService;
 import lk.ijse.hello_shoes_shop_backend.Service.JWTService;
-import lk.ijse.hello_shoes_shop_backend.Service.UserService;
 import lk.ijse.hello_shoes_shop_backend.convert.DataConvert;
 import lk.ijse.hello_shoes_shop_backend.entity.EmployeeEntity;
 import lk.ijse.hello_shoes_shop_backend.entity.UserEntity;
-import lk.ijse.hello_shoes_shop_backend.reqAndResp.response.JwtAuthResponse;
-import lk.ijse.hello_shoes_shop_backend.reqAndResp.secure.SignUp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -39,6 +32,7 @@ public class EmployeeServiceIMPL implements EmployeeService {
     UserRepo userRepo;
     @Autowired
     DataConvert dataConvert;
+
     @Override
     public String saveEmployee(EmployeeDto employeeDto) {
         EmployeeEntity savedEmployee = employeeRepo.save(dataConvert.employeeDtoConvertEmployeeEntity(employeeDto));
@@ -61,9 +55,9 @@ public class EmployeeServiceIMPL implements EmployeeService {
 
             String token = jwtService.generateToken(userEntity);
 
-          //  UserDto userDto = dataConvert.userEntityConvertUserDto(userEntity);
-          //  System.out.println(userDto);
-          //  userService.saveUser(userDto);
+            //  UserDto userDto = dataConvert.userEntityConvertUserDto(userEntity);
+            //  System.out.println(userDto);
+            //  userService.saveUser(userDto);
             userRepo.save(userEntity);
 
             //            SignUp signUp = new SignUp();
@@ -101,7 +95,7 @@ public class EmployeeServiceIMPL implements EmployeeService {
 //            userService.saveUser(userDto);
 
 
-            return token +"\n"+ password +"\n"+ employeeDto.getEmail();
+            return token + "\n" + password + "\n" + employeeDto.getEmail();
         } else {
             System.out.println("Employee save unsuccessful");
         }
@@ -116,7 +110,7 @@ public class EmployeeServiceIMPL implements EmployeeService {
         EmployeeEntity employeeEntity = employeeRepo.findById(updateEmpId).orElse(null);
         UserEntity userEntity = userRepo.findByEmail(employeeEntity.getEmail()).orElse(null);
 
-        if (employeeEntity != null){
+        if (employeeEntity != null) {
             employeeEntity.setEmployeeName(employeeDto.getEmployeeName());
             employeeEntity.setEmployeePic(employeeDto.getEmployeePic());
             employeeEntity.setGender(employeeDto.getGender());
@@ -140,5 +134,22 @@ public class EmployeeServiceIMPL implements EmployeeService {
             employeeRepo.save(employeeEntity);
             userRepo.save(userEntity);
         }
+    }
+
+    @Override
+    public String deleteEmployee(String email, String id)  {
+        UserEntity userEntity = userRepo.findByEmail(email).orElse(null);
+        EmployeeEntity employeeEntity = employeeRepo.findById(id).orElse(null);
+
+
+        if (userEntity == null && employeeEntity == null){
+            return "this Id have no Employee";
+        }else{
+            userRepo.delete(userEntity);
+            employeeRepo.delete(employeeEntity);
+            return "Delete Employee";
+        }
+
+
     }
 }

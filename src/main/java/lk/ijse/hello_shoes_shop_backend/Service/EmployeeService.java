@@ -6,4 +6,6 @@ import java.util.ArrayList;
 
 public interface EmployeeService {
     String saveEmployee(EmployeeDto employeeDto);
+    void updateEmployee(String updateEmpId , EmployeeDto employeeDto);
+
 }

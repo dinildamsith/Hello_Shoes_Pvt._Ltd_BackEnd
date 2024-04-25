@@ -20,6 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -108,5 +109,36 @@ public class EmployeeServiceIMPL implements EmployeeService {
         return null;
 
 
+    }
+
+    @Override
+    public void updateEmployee(String updateEmpId, EmployeeDto employeeDto) {
+        EmployeeEntity employeeEntity = employeeRepo.findById(updateEmpId).orElse(null);
+        UserEntity userEntity = userRepo.findByEmail(employeeEntity.getEmail()).orElse(null);
+
+        if (employeeEntity != null){
+            employeeEntity.setEmployeeName(employeeDto.getEmployeeName());
+            employeeEntity.setEmployeePic(employeeDto.getEmployeePic());
+            employeeEntity.setGender(employeeDto.getGender());
+            employeeEntity.setStatus(employeeDto.getStatus());
+            employeeEntity.setDesignation(employeeDto.getDesignation());
+            employeeEntity.setRole(employeeDto.getRole());
+            employeeEntity.setBirthDay(employeeDto.getBirthDay());
+            employeeEntity.setJoinDate(employeeDto.getJoinDate());
+            employeeEntity.setAttachedBranch(employeeDto.getAttachedBranch());
+            employeeEntity.setAddress1(employeeDto.getAddress1());
+            employeeEntity.setAddress2(employeeDto.getAddress2());
+            employeeEntity.setAddress3(employeeDto.getAddress3());
+            employeeEntity.setAddress4(employeeDto.getAddress4());
+            employeeEntity.setAddress5(employeeDto.getAddress5());
+            employeeEntity.setContact(employeeDto.getContact());
+            employeeEntity.setGuardianName(employeeDto.getGuardianName());
+            employeeEntity.setEmergencyContact(employeeDto.getEmergencyContact());
+
+            userEntity.setRole(employeeDto.getRole());
+
+            employeeRepo.save(employeeEntity);
+            userRepo.save(userEntity);
+        }
     }
 }

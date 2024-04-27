@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -27,6 +28,9 @@ public class UserEntity implements UserDetails {
     private Role role;
     @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
     private EmployeeEntity employeeEntity;
+
+    @OneToMany(mappedBy = "userEntity")
+    private List<OrderEntity> sales;
 
 
 

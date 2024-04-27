@@ -6,6 +6,8 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -26,5 +28,8 @@ public class SupplierEntity implements SuperEntity{
     private String contact1;
     private String contact2;
     private String email;
+
+    @ManyToMany(mappedBy = "supplier")
+    private List<ItemEntity> supplierSupply;
 
 }

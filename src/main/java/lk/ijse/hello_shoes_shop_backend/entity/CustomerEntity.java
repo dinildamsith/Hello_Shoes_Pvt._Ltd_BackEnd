@@ -6,9 +6,12 @@ import lk.ijse.hello_shoes_shop_backend.enums.Level;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.apache.commons.lang3.builder.ToStringExclude;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -35,5 +38,8 @@ public class CustomerEntity implements SuperEntity{
     private String email;
     private Timestamp recentPurchaseDate;
 
+    @ToStringExclude
+    @OneToMany(mappedBy = "customerDetails" ,targetEntity = OrderEntity.class , cascade = CascadeType.REMOVE,orphanRemoval =true)
+    private List<OrderEntity> orderEntities = new ArrayList<>();
 
 }

@@ -2,11 +2,14 @@ package lk.ijse.hello_shoes_shop_backend.Dto;
 
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import lk.ijse.hello_shoes_shop_backend.entity.ItemEntity;
 import lk.ijse.hello_shoes_shop_backend.enums.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -26,4 +29,5 @@ public class SupplierDto implements SuperDto{
     private String contact1;
     private String contact2;
     private String email;
+
 }

@@ -1,8 +1,11 @@
 package lk.ijse.hello_shoes_shop_backend.Dto;
 
+import lk.ijse.hello_shoes_shop_backend.entity.SupplierEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 @Data
@@ -16,6 +19,11 @@ public class ItemDto {
     private double expectedProfit;
     private double profitMargin;
     private int status;
-    private String supplierName;
     private double buyPrice;
+    private List<SupplierEntity> supplierEntityList;
+
+
+
+
+
 }

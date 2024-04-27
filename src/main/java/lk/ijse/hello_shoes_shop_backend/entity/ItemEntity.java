@@ -29,13 +29,19 @@ public class ItemEntity {
     @ManyToMany(mappedBy = "buyItem")
     private List<OrderEntity> order;
 
-    @ManyToMany
-    private List<SupplierEntity> supplier;
+    @ManyToMany(cascade = CascadeType.DETACH)
+    @JoinTable(
+            name = "supplier_supply_item_details"
+    )
+    private List<SupplierEntity> supplierEntityList;
 
 
 //    @ManyToMany
 //    private List<SizeEntity> size;
     @OneToMany(mappedBy = "item")
     private List<StockEntity> stock;
+
+
+
 
 }

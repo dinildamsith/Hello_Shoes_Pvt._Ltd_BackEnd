@@ -1,15 +1,10 @@
 package lk.ijse.hello_shoes_shop_backend.convert;
 
-import lk.ijse.hello_shoes_shop_backend.Dto.CustomerDto;
-import lk.ijse.hello_shoes_shop_backend.Dto.EmployeeDto;
-import lk.ijse.hello_shoes_shop_backend.Dto.SupplierDto;
-import lk.ijse.hello_shoes_shop_backend.Dto.UserDto;
-import lk.ijse.hello_shoes_shop_backend.entity.CustomerEntity;
-import lk.ijse.hello_shoes_shop_backend.entity.EmployeeEntity;
-import lk.ijse.hello_shoes_shop_backend.entity.SupplierEntity;
-import lk.ijse.hello_shoes_shop_backend.entity.UserEntity;
+import lk.ijse.hello_shoes_shop_backend.Dto.*;
+import lk.ijse.hello_shoes_shop_backend.entity.*;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -61,4 +56,19 @@ public class DataConvert {
         return modelMapper.map(employeeEntityList, List.class);
     }
 
+    // item Data
+    public ItemEntity itemDtoConvertItemEntity(ItemDto itemDto){
+        return modelMapper.map(itemDto, ItemEntity.class);
+    }
+    public ItemDto itemEntityConvertItemDto(ItemEntity itemEntity){
+        return modelMapper.map(itemEntity, ItemDto.class);
+    }
+
+    //order Data
+    public OrderDto orderEntityConvertOrderDto(OrderEntity orderEntity){
+       return modelMapper.map(orderEntity, OrderDto.class);
+    }
+    public OrderEntity OrderDtoConvertOrderEntity(OrderDto orderDto){
+        return modelMapper.map(orderDto, OrderEntity.class);
+    }
 }

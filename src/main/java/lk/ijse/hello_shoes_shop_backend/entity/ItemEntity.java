@@ -16,13 +16,13 @@ public class ItemEntity {
     @Id
     private String itemCode;
     private String itemDesc;
+    @Column(columnDefinition = "LONGTEXT")
     private String itemPic;
     private String Category;
     private double unitPriceSale;
     private double expectedProfit;
     private double profitMargin;
     private int status;
-    private String supplierName;
     private double buyPrice;
 
 

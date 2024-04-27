@@ -31,7 +31,8 @@ public class ItemServiceIMPL implements ItemService {
     public void saveItem(String itemSupplySupplierId ,ItemDto itemDto) {
 
         SupplierEntity supplierEntity = supplierRepo.findById(itemSupplySupplierId).orElse(null);
-        if (supplierEntity !=null){
+
+        if (supplierEntity != null){
 
             ItemEntity itemEntity = dataConvert.itemDtoConvertItemEntity(itemDto);
 
@@ -47,7 +48,7 @@ public class ItemServiceIMPL implements ItemService {
             itemRepo.save(itemEntity);
 
         }else{
-            System.out.println("This Id Have No Suppliers");
+            System.out.println("This Id Have No Supplier");
         }
 
     }

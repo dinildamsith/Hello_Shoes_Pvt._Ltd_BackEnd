@@ -39,4 +39,34 @@ public class ItemController {
 
         itemService.saveItem(itemDto);
     }
+
+
+    @PutMapping
+    @RequestMapping("/update/{id}")
+    void updateItem(@PathVariable("id") String updateItemId ,
+
+                    @RequestPart("item_desc") String desc,
+                    @RequestPart("item_pic") String pic,
+                    @RequestPart("category") String category,
+                    @RequestPart("salePrice") String salePrice,
+                    @RequestPart("expectedProfit") String expectedProfit,
+                    @RequestPart("profitMargin") String profitMargin,
+                    @RequestPart("status") String status,
+                    @RequestPart("buyPrice") String buyPrice
+    ){
+
+        String picConvertBase64 = UtilMatters.convertBase64(pic);
+        ItemDto itemDto = new ItemDto();
+
+        itemDto.setItemDesc(desc);
+        itemDto.setItemPic(picConvertBase64);
+        itemDto.setCategory(category);
+        itemDto.setUnitPriceSale(Double.parseDouble(salePrice));
+        itemDto.setExpectedProfit(Double.parseDouble(expectedProfit));
+        itemDto.setProfitMargin(Double.parseDouble(profitMargin));
+        itemDto.setStatus(Integer.parseInt(status));
+        itemDto.setBuyPrice(Double.parseDouble(buyPrice));
+
+        itemService.updateItem(updateItemId , itemDto);
+    }
 }

@@ -14,10 +14,14 @@ public class StockEntity {
     @Id
     private String stockId;
 
+    private int qty;
+
     @ManyToOne
     @JoinColumn(name = "size")
     private SizeEntity size;
     @ManyToOne
     @JoinColumn(name = "item")
     private ItemEntity item;
+
+
 }

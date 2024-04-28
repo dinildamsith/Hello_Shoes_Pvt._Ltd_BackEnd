@@ -7,6 +7,6 @@ import lk.ijse.hello_shoes_shop_backend.entity.StockEntity;
 public interface ItemService {
     void saveItem(String itemSupplierId,ItemDto itemDto,String size,String qty);
     void updateItem(String updateItemId , ItemDto itemDto,String supplierId);
-    void searchItem(String searchItemId , CustomerDto customerDto);
+    void deleteItem(String deleteItemId);
 
 }

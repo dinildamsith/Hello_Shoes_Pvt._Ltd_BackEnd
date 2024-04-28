@@ -19,7 +19,7 @@ public class StockEntity implements SuperEntity{
     private String itemSize;
     private String qty;
     //
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "itemId")
     private ItemEntity itemEntititys;
 

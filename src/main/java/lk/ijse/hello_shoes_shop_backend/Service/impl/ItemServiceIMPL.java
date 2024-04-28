@@ -125,8 +125,9 @@ public class ItemServiceIMPL implements ItemService {
     }
 
     @Override
-    public void searchItem(String searchItemId, CustomerDto customerDto) {
-
+    public void deleteItem(String deleteItemId) {
+        itemRepo.deleteById(deleteItemId);
     }
+
 
 }

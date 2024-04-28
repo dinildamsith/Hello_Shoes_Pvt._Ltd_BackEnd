@@ -94,4 +94,10 @@ public class ItemController {
 
         itemService.updateItem(updateItemId , itemDto,supplierId);
     }
+
+    @DeleteMapping
+    @RequestMapping("/delete/{id}")
+    void deleteItem(@PathVariable ("id") String deleteItemId){
+        itemService.deleteItem(deleteItemId);
+    }
 }

@@ -37,7 +37,7 @@ public class ItemEntity {
 
 
     //
-    @OneToMany(mappedBy = "itemEntititys")
+    @OneToMany(mappedBy = "itemEntititys",cascade = CascadeType.REMOVE,orphanRemoval =true)
     private List<StockEntity> stockEntityList;
 
 //    @OneToMany(mappedBy = "item")

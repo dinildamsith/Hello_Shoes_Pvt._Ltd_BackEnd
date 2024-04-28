@@ -1,6 +1,9 @@
-package lk.ijse.hello_shoes_shop_backend.entity;
+package lk.ijse.hello_shoes_shop_backend.Dto;
 
-import jakarta.persistence.*;
+import lk.ijse.hello_shoes_shop_backend.entity.CustomerEntity;
+import lk.ijse.hello_shoes_shop_backend.entity.EmployeeEntity;
+import lk.ijse.hello_shoes_shop_backend.entity.ItemEntity;
+import lk.ijse.hello_shoes_shop_backend.entity.UserEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,10 +14,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "orders")
-public class OrderEntity implements SuperEntity{
-    @Id
+public class OrderDto {
     private String orderCode;
     private Date purchaseDate;
     private String customerName;
@@ -26,24 +26,7 @@ public class OrderEntity implements SuperEntity{
     private String paymentMethod;
     private double points;
     private String cashierName;
-
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
     CustomerEntity customerDetails;
-
-    @ManyToMany
     private List<ItemEntity> buyItem;
-
-
-
-
-
-
-
-
-
-    @ManyToOne
-    @JoinColumn//(name = "order_sale_EmployeeId")
     private EmployeeEntity employeeEntity;
-
 }

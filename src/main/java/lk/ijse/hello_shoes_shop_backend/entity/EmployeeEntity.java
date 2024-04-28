@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -36,5 +37,8 @@ public class EmployeeEntity implements SuperEntity{
     private String email;
     private String guardianName;
     private String emergencyContact;
+
+    @OneToMany(mappedBy = "employeeEntity")
+    private List<OrderEntity> sales;
 
 }

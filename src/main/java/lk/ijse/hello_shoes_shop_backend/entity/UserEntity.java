@@ -29,8 +29,8 @@ public class UserEntity implements UserDetails {
     @OneToOne(fetch = FetchType.EAGER,cascade = CascadeType.DETACH)
     private EmployeeEntity employeeEntity;
 
-    @OneToMany(mappedBy = "userEntity")
-    private List<OrderEntity> sales;
+//    @OneToMany(mappedBy = "userEntity")
+//    private List<OrderEntity> sales;
 
 
 

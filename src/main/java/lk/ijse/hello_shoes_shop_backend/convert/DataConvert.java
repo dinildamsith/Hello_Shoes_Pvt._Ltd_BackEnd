@@ -68,7 +68,7 @@ public class DataConvert {
     public OrderDto orderEntityConvertOrderDto(OrderEntity orderEntity){
        return modelMapper.map(orderEntity, OrderDto.class);
     }
-    public OrderEntity OrderDtoConvertOrderEntity(OrderDto orderDto){
+    public OrderEntity orderDtoConvertOrderEntity(OrderDto orderDto){
         return modelMapper.map(orderDto, OrderEntity.class);
     }
 }

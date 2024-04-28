@@ -29,6 +29,12 @@ public class ItemEntity {
     @ManyToMany(mappedBy = "buyItem")
     private List<OrderEntity> order;
 
+
+
+
+
+
+
     @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(
             name = "supplier_supply_item_details"

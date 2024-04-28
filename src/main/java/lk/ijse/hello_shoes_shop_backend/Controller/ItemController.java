@@ -64,11 +64,9 @@ public class ItemController {
 
 
     @PutMapping
-    @RequestMapping("/update/{id}/{supplierId}/{size}/{qty}")
+    @RequestMapping("/update/{id}/{supplierId}")
     void updateItem(@PathVariable("id") String updateItemId ,
                     @PathVariable("supplierId") String supplierId,
-                    @PathVariable("size") String size,
-                    @PathVariable("qty") String qty,
                     @RequestPart("item_desc") String desc,
                     @RequestPart("item_pic") String pic,
                     @RequestPart("category") String category,
@@ -94,6 +92,6 @@ public class ItemController {
         itemDto.setBuyPrice(Double.parseDouble(buyPrice));
 
 
-        itemService.updateItem(updateItemId , itemDto,supplierId,size,qty);
+        itemService.updateItem(updateItemId , itemDto,supplierId);
     }
 }

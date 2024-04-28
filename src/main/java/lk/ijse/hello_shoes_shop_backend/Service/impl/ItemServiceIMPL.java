@@ -93,7 +93,7 @@ public class ItemServiceIMPL implements ItemService {
     }
 
     @Override
-    public void updateItem(String updateItemId, ItemDto updateItemDetailsDto,String supplierId,String size,String qty) {
+    public void updateItem(String updateItemId, ItemDto updateItemDetailsDto,String supplierId) {
         ItemEntity updateItemEntity = itemRepo.findById(updateItemId).orElse(null);
         SupplierEntity supplierEntity = supplierRepo.findById(supplierId).orElse(null);
 

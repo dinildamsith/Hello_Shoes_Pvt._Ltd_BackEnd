@@ -3,6 +3,7 @@ package lk.ijse.hello_shoes_shop_backend.Service.impl;
 import jakarta.persistence.Id;
 import lk.ijse.hello_shoes_shop_backend.Dao.CustomerRepo;
 import lk.ijse.hello_shoes_shop_backend.Dao.OrderRepo;
+import lk.ijse.hello_shoes_shop_backend.Dao.SizeRepo;
 import lk.ijse.hello_shoes_shop_backend.Dto.OrderDto;
 import lk.ijse.hello_shoes_shop_backend.Service.OrderService;
 import lk.ijse.hello_shoes_shop_backend.convert.DataConvert;
@@ -25,6 +26,8 @@ public class OrderServiceIMPL implements OrderService {
     CustomerRepo customerRepo;
     @Autowired
     DataConvert dataConvert;
+    @Autowired
+    SizeRepo sizeRepo;
 
     @Override
     public void saveOrder(OrderDto orderDto) {
@@ -46,8 +49,15 @@ public class OrderServiceIMPL implements OrderService {
             totalPoints+=1;
             customerEntity.setTotalPoints(totalPoints);
             customerRepo.save(customerEntity);
-
        }
+        ItemEntity itemEntity2 = orderDto.getBuyItem().get(0);
+        StockEntity stockEntity = sizeRepo.getItemQty(itemEntity2.getItemCode(), String.valueOf(orderDto.getSize()));
+        int i = Integer.parseInt(stockEntity.getQty());
+        int x = i-orderDto.getQty();
+        stockEntity.setQty(String.valueOf(x));
+
+        sizeRepo.save(stockEntity);
+
 
         ItemEntity itemEntity1 = orderDto.getBuyItem().get(0);
         itemEntity.setItemCode(itemEntity1.getItemCode());

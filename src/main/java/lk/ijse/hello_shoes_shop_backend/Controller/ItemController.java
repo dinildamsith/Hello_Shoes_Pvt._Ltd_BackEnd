@@ -1,12 +1,8 @@
 package lk.ijse.hello_shoes_shop_backend.Controller;
 
-import lk.ijse.hello_shoes_shop_backend.Dao.ItemRepo;
-import lk.ijse.hello_shoes_shop_backend.Dao.SupplierRepo;
 import lk.ijse.hello_shoes_shop_backend.Dto.ItemDto;
 import lk.ijse.hello_shoes_shop_backend.Service.ItemService;
 import lk.ijse.hello_shoes_shop_backend.convert.DataConvert;
-import lk.ijse.hello_shoes_shop_backend.entity.ItemEntity;
-import lk.ijse.hello_shoes_shop_backend.entity.SizeEntity;
 
 import lk.ijse.hello_shoes_shop_backend.entity.SupplierEntity;
 import lk.ijse.hello_shoes_shop_backend.util.UtilMatters;
@@ -14,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -69,9 +64,11 @@ public class ItemController {
 
 
     @PutMapping
-    @RequestMapping("/update/{id}")
+    @RequestMapping("/update/{id}/{supplierId}/{size}/{qty}")
     void updateItem(@PathVariable("id") String updateItemId ,
-
+                    @PathVariable("supplierId") String supplierId,
+                    @PathVariable("size") String size,
+                    @PathVariable("qty") String qty,
                     @RequestPart("item_desc") String desc,
                     @RequestPart("item_pic") String pic,
                     @RequestPart("category") String category,
@@ -79,13 +76,12 @@ public class ItemController {
                     @RequestPart("expectedProfit") String expectedProfit,
                     @RequestPart("profitMargin") String profitMargin,
                     @RequestPart("status") String status,
-                    @RequestPart("buyPrice") String buyPrice,
-                    @RequestPart("supplierId") String supplierId
+                    @RequestPart("buyPrice") String buyPrice
     ){
 
 
         ItemDto itemDto = new ItemDto();
-        SupplierEntity supplierEntity = new SupplierEntity();
+
 
         String picConvertBase64 = UtilMatters.convertBase64(pic);
         itemDto.setItemDesc(desc);
@@ -96,9 +92,8 @@ public class ItemController {
         itemDto.setProfitMargin(Double.parseDouble(profitMargin));
         itemDto.setStatus(Integer.parseInt(status));
         itemDto.setBuyPrice(Double.parseDouble(buyPrice));
-        supplierEntity.setSupplierCode(supplierId);
-        itemDto.setSupplierEntityList((List<SupplierEntity>) supplierEntity);
 
-        itemService.updateItem(updateItemId , itemDto);
+
+        itemService.updateItem(updateItemId , itemDto,supplierId,size,qty);
     }
 }

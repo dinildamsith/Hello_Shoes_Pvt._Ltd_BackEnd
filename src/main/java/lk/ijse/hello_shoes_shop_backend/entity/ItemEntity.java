@@ -38,7 +38,7 @@ public class ItemEntity {
 
     //
     @OneToMany(mappedBy = "itemEntititys")
-    private List<SizeEntity> sizeEntityList;
+    private List<StockEntity> stockEntityList;
 
 //    @OneToMany(mappedBy = "item")
 //    private List<StockEntity> stock;

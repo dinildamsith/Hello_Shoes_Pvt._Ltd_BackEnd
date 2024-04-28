@@ -5,14 +5,12 @@ import lk.ijse.hello_shoes_shop_backend.Dao.SizeRepo;
 import lk.ijse.hello_shoes_shop_backend.Dao.SupplierRepo;
 import lk.ijse.hello_shoes_shop_backend.Dto.CustomerDto;
 import lk.ijse.hello_shoes_shop_backend.Dto.ItemDto;
-import lk.ijse.hello_shoes_shop_backend.Dto.SupplierDto;
 import lk.ijse.hello_shoes_shop_backend.Service.ItemService;
 import lk.ijse.hello_shoes_shop_backend.convert.DataConvert;
 import lk.ijse.hello_shoes_shop_backend.entity.ItemEntity;
-import lk.ijse.hello_shoes_shop_backend.entity.SizeEntity;
+import lk.ijse.hello_shoes_shop_backend.entity.StockEntity;
 
 import lk.ijse.hello_shoes_shop_backend.entity.SupplierEntity;
-import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -43,17 +41,17 @@ public class ItemServiceIMPL implements ItemService {
 
 
             ItemEntity itemEntity = dataConvert.itemDtoConvertItemEntity(itemDto);
-            SizeEntity sizeEntity = new SizeEntity();
+            StockEntity stockEntity = new StockEntity();
 
-            sizeEntity.setStockId(String.valueOf(UUID.randomUUID()));
-            sizeEntity.setItemSize(size);
-            sizeEntity.setQty(qty);
-            sizeEntity.setItemEntititys(itemEntity);
+            stockEntity.setStockId(String.valueOf(UUID.randomUUID()));
+            stockEntity.setItemSize(size);
+            stockEntity.setQty(qty);
+            stockEntity.setItemEntititys(itemEntity);
 
 
             List<SupplierEntity> supplierEntityList = new ArrayList<>();
             List<ItemEntity> itemEntityList = new ArrayList<>();
-            List<SizeEntity> sizeEntityList = new ArrayList<>();
+            List<StockEntity> stockEntityList = new ArrayList<>();
 
 
 
@@ -63,13 +61,13 @@ public class ItemServiceIMPL implements ItemService {
             itemEntity.setSupplierEntityList(supplierEntityList);
             supplierEntity.setItemEntityList(itemEntityList);
 
-             sizeEntity.setItemEntititys(itemEntity);
-             sizeEntityList.add(sizeEntity);
-             sizeEntityList.add(sizeEntity);
+             stockEntity.setItemEntititys(itemEntity);
+             stockEntityList.add(stockEntity);
+             stockEntityList.add(stockEntity);
 
 
             itemRepo.save(itemEntity);
-            sizeRepo.save(sizeEntity);
+            sizeRepo.save(stockEntity);
 
         }else{
             System.out.println("This Id Have No Supplier");
@@ -78,9 +76,17 @@ public class ItemServiceIMPL implements ItemService {
     }
 
     @Override
-    public void updateItem(String updateItemId, ItemDto updateItemDetailsDto) {
+    public void updateItem(String updateItemId, ItemDto updateItemDetailsDto,String supplierId,String size,String qty) {
         ItemEntity updateItemEntity = itemRepo.findById(updateItemId).orElse(null);
+        SupplierEntity supplierEntity = supplierRepo.findById(supplierId).orElse(null);
+
         if (updateItemEntity != null){
+
+
+            List<SupplierEntity> supplierEntityList = new ArrayList<>();
+            List<ItemEntity> itemEntityList = new ArrayList<>();
+
+            supplierEntity.setSupplierCode(supplierId);
             updateItemEntity.setCategory(updateItemDetailsDto.getCategory());
             updateItemEntity.setBuyPrice(updateItemDetailsDto.getBuyPrice());
             updateItemEntity.setExpectedProfit(updateItemDetailsDto.getExpectedProfit());
@@ -89,6 +95,11 @@ public class ItemServiceIMPL implements ItemService {
             updateItemEntity.setProfitMargin(updateItemDetailsDto.getProfitMargin());
             updateItemEntity.setStatus(updateItemEntity.getStatus());
             updateItemEntity.setUnitPriceSale(updateItemDetailsDto.getUnitPriceSale());
+            supplierEntityList.add(supplierEntity);
+            itemEntityList.add(updateItemEntity);
+
+            updateItemEntity.setSupplierEntityList(supplierEntityList);
+            supplierEntity.setItemEntityList(itemEntityList);
 
             itemRepo.save(updateItemEntity);
         }else{

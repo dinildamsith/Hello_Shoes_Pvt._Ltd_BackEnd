@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -31,6 +32,9 @@ public class ItemServiceIMPL implements ItemService {
     SupplierRepo supplierRepo;
     @Autowired
     SizeRepo sizeRepo;
+
+
+
     @Override
     public void saveItem(String itemSupplySupplierId ,ItemDto itemDto,String size,String qty) {
 
@@ -43,11 +47,23 @@ public class ItemServiceIMPL implements ItemService {
             ItemEntity itemEntity = dataConvert.itemDtoConvertItemEntity(itemDto);
             StockEntity stockEntity = new StockEntity();
 
-            stockEntity.setStockId(String.valueOf(UUID.randomUUID()));
+            stockEntity.setStockId(itemDto.getItemDesc()+""+size);
             stockEntity.setItemSize(size);
             stockEntity.setQty(qty);
             stockEntity.setItemEntititys(itemEntity);
 
+            String haveQty = sizeRepo.checkItemHaveStock(stockEntity.getStockId());
+
+
+            if (haveQty !=null){
+                int haveQtyConvert = Integer.parseInt(haveQty);
+                String qty1 = stockEntity.getQty();
+                int qt = Integer.parseInt(qty1);
+
+
+                haveQtyConvert+=qt;
+                stockEntity.setQty(String.valueOf(haveQtyConvert));
+            }
 
             List<SupplierEntity> supplierEntityList = new ArrayList<>();
             List<ItemEntity> itemEntityList = new ArrayList<>();
@@ -70,6 +86,7 @@ public class ItemServiceIMPL implements ItemService {
             sizeRepo.save(stockEntity);
 
         }else{
+
             System.out.println("This Id Have No Supplier");
         }
 
@@ -111,4 +128,5 @@ public class ItemServiceIMPL implements ItemService {
     public void searchItem(String searchItemId, CustomerDto customerDto) {
 
     }
+
 }

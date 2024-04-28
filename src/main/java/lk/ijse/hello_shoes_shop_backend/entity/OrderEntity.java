@@ -24,7 +24,7 @@ public class OrderEntity implements SuperEntity{
     private int qty;
     private double total;
     private String paymentMethod;
-    private double points;
+    private int points;
     private String cashierName;
 
     @ManyToOne

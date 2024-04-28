@@ -80,7 +80,7 @@ public class ItemServiceIMPL implements ItemService {
         ItemEntity updateItemEntity = itemRepo.findById(updateItemId).orElse(null);
         SupplierEntity supplierEntity = supplierRepo.findById(supplierId).orElse(null);
 
-        if (updateItemEntity != null){
+        if (updateItemEntity != null && supplierEntity !=null){
 
 
             List<SupplierEntity> supplierEntityList = new ArrayList<>();
@@ -103,7 +103,7 @@ public class ItemServiceIMPL implements ItemService {
 
             itemRepo.save(updateItemEntity);
         }else{
-            System.out.println("this id have no customer");
+            System.out.println("this id have no Supplier");
         }
     }
 

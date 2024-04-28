@@ -15,11 +15,14 @@ import java.util.List;
 public class SizeEntity implements SuperEntity{
 
     @Id
+    private String stockId;
     private String itemSize;
+    private String qty;
+    //
+    @ManyToOne
+    @JoinColumn(name = "itemId")
+    private ItemEntity itemEntititys;
 
-//    @ManyToMany(mappedBy = "size")
-//    private List<ItemEntity> item;
-
-    @OneToMany(mappedBy = "size")
-    private List<StockEntity> stock;
+//    @OneToMany(mappedBy = "size")
+//    private List<StockEntity> stock;
 }

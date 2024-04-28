@@ -29,5 +29,5 @@ public class SupplierDto implements SuperDto{
     private String contact1;
     private String contact2;
     private String email;
-
+    private List<ItemEntity> itemEntityList;
 }

@@ -1,5 +1,8 @@
 package lk.ijse.hello_shoes_shop_backend.Dto;
 
+import lk.ijse.hello_shoes_shop_backend.entity.OrderEntity;
+
+import lk.ijse.hello_shoes_shop_backend.entity.SizeEntity;
 import lk.ijse.hello_shoes_shop_backend.entity.SupplierEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +24,9 @@ public class ItemDto {
     private int status;
     private double buyPrice;
     private List<SupplierEntity> supplierEntityList;
+    private List<OrderEntity> orderEntityList;
+    private List<SizeEntity> sizeEntityList;
+
 
 
 

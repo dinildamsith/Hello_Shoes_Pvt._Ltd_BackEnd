@@ -36,10 +36,12 @@ public class ItemEntity {
     private List<SupplierEntity> supplierEntityList;
 
 
-//    @ManyToMany
-//    private List<SizeEntity> size;
-    @OneToMany(mappedBy = "item")
-    private List<StockEntity> stock;
+    //
+    @OneToMany(mappedBy = "itemEntititys")
+    private List<SizeEntity> sizeEntityList;
+
+//    @OneToMany(mappedBy = "item")
+//    private List<StockEntity> stock;
 
 
 

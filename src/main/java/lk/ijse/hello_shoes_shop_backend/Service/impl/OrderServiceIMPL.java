@@ -4,6 +4,7 @@ import jakarta.persistence.Id;
 import lk.ijse.hello_shoes_shop_backend.Dao.*;
 import lk.ijse.hello_shoes_shop_backend.Dto.OrderDto;
 import lk.ijse.hello_shoes_shop_backend.Dto.ReturnDto;
+import lk.ijse.hello_shoes_shop_backend.Service.DateServices;
 import lk.ijse.hello_shoes_shop_backend.Service.OrderService;
 import lk.ijse.hello_shoes_shop_backend.convert.DataConvert;
 import lk.ijse.hello_shoes_shop_backend.entity.*;
@@ -12,7 +13,11 @@ import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -31,6 +36,8 @@ public class OrderServiceIMPL implements OrderService {
     SizeRepo sizeRepo;
     @Autowired
     ItemRepo itemRepo;
+    @Autowired
+    DateServices dateServices;
 
     @Override
     public void saveOrder(OrderDto orderDto) {
@@ -78,21 +85,58 @@ public class OrderServiceIMPL implements OrderService {
 
         orderRepo.save(orderEntity);
 
+
+
     }
 
     @Override
     public void returnOrder(ReturnDto returnDto) {
-        returnRepo.save(dataConvert.returnDtoConvertReturnEntity(returnDto));
 
-        OrderEntity returnOrder = orderRepo.getReferenceById(returnDto.getOrderEntity().getOrderCode());
-        returnOrder.setOrderStatus("ORDER RETURN");
-        orderRepo.save(returnOrder);
+        OrderEntity orderEntity = orderRepo.findById(returnDto.getOrderEntity().getOrderCode()).orElse(null);
+        Date orderPurchaseDate = orderEntity.getPurchaseDate();
 
-        StockEntity itemQty = sizeRepo.getItemQty(returnDto.getItemId(), returnDto.getSize());
-        int qty = Integer.parseInt(itemQty.getQty());
-        int updateQty = qty + Integer.parseInt(returnDto.getQty());
-        itemQty.setQty(String.valueOf(updateQty));
-        sizeRepo.save(itemQty);
+        Date currentDate = new Date();
+        LocalDate orderReturnLstDay = dateServices.orderLastReturnDay(orderPurchaseDate);
+        LocalDate todayDate = currentDate.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+
+        // Compare dates
+        if (orderReturnLstDay.isBefore(todayDate)) {
+
+            System.out.println("Sorry Customer This Order Can't return you item return last day missing !!1");
+
+        } else{
+
+            String orderStatus = orderEntity.getOrderStatus();
+
+            if (orderStatus.equals("ORDER CONFIRM")){
+
+                returnRepo.save(dataConvert.returnDtoConvertReturnEntity(returnDto));
+
+                OrderEntity placeOrde = orderRepo.getReferenceById(returnDto.getOrderEntity().getOrderCode());
+                System.out.println(placeOrde.getPurchaseDate());
+
+                placeOrde.setOrderStatus("ORDER RETURN");
+                orderRepo.save(placeOrde);
+
+                StockEntity itemQty = sizeRepo.getItemQty(returnDto.getItemId(), returnDto.getSize());
+                int qty = Integer.parseInt(itemQty.getQty());
+                int updateQty = qty + Integer.parseInt(returnDto.getQty());
+                itemQty.setQty(String.valueOf(updateQty));
+                sizeRepo.save(itemQty);
+
+            }else {
+                System.out.println("Sorry Sir You Can order Return One Chanes Only");
+            }
+
+
+
+
+
+
+        }
+
+
 
 
 

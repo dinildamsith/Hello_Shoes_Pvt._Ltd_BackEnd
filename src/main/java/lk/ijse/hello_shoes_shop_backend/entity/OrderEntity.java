@@ -26,24 +26,21 @@ public class OrderEntity implements SuperEntity{
     private String paymentMethod;
     private int points;
     private String cashierName;
+    private String orderStatus;
 
     @ManyToOne
     @JoinColumn(name = "customer_id")
     CustomerEntity customerDetails;
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.DETACH)
     private List<ItemEntity> buyItem;
-
-
-
-
-
-
-
 
 
     @ManyToOne
     @JoinColumn//(name = "order_sale_EmployeeId")
     private EmployeeEntity employeeEntity;
+
+    @OneToOne(mappedBy = "orderEntity")
+    private ReturnEntity returnEntity;
 
 }

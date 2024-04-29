@@ -26,6 +26,7 @@ public class OrderDto {
     private String paymentMethod;
     private double points;
     private String cashierName;
+    private String orderStatus;
     CustomerEntity customerDetails;
     private List<ItemEntity> buyItem;
     private EmployeeEntity employeeEntity;

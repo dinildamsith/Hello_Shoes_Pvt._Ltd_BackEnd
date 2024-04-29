@@ -1,10 +1,9 @@
 package lk.ijse.hello_shoes_shop_backend.Service.impl;
 
 import jakarta.persistence.Id;
-import lk.ijse.hello_shoes_shop_backend.Dao.CustomerRepo;
-import lk.ijse.hello_shoes_shop_backend.Dao.OrderRepo;
-import lk.ijse.hello_shoes_shop_backend.Dao.SizeRepo;
+import lk.ijse.hello_shoes_shop_backend.Dao.*;
 import lk.ijse.hello_shoes_shop_backend.Dto.OrderDto;
+import lk.ijse.hello_shoes_shop_backend.Dto.ReturnDto;
 import lk.ijse.hello_shoes_shop_backend.Service.OrderService;
 import lk.ijse.hello_shoes_shop_backend.convert.DataConvert;
 import lk.ijse.hello_shoes_shop_backend.entity.*;
@@ -27,12 +26,17 @@ public class OrderServiceIMPL implements OrderService {
     @Autowired
     DataConvert dataConvert;
     @Autowired
+    ReturnRepo returnRepo;
+    @Autowired
     SizeRepo sizeRepo;
+    @Autowired
+    ItemRepo itemRepo;
 
     @Override
     public void saveOrder(OrderDto orderDto) {
 
         OrderEntity orderEntity = dataConvert.orderDtoConvertOrderEntity(orderDto);
+        orderEntity.setOrderStatus("ORDER CONFIRM");
         ItemEntity itemEntity = new ItemEntity();
 
         String customerCode = orderDto.getCustomerDetails().getCustomerCode();
@@ -73,6 +77,24 @@ public class OrderServiceIMPL implements OrderService {
 
 
         orderRepo.save(orderEntity);
+
+    }
+
+    @Override
+    public void returnOrder(ReturnDto returnDto) {
+        returnRepo.save(dataConvert.returnDtoConvertReturnEntity(returnDto));
+
+        OrderEntity returnOrder = orderRepo.getReferenceById(returnDto.getOrderEntity().getOrderCode());
+        returnOrder.setOrderStatus("ORDER RETURN");
+        orderRepo.save(returnOrder);
+
+        StockEntity itemQty = sizeRepo.getItemQty(returnDto.getItemId(), returnDto.getSize());
+        int qty = Integer.parseInt(itemQty.getQty());
+        int updateQty = qty + Integer.parseInt(returnDto.getQty());
+        itemQty.setQty(String.valueOf(updateQty));
+        sizeRepo.save(itemQty);
+
+
 
     }
 }

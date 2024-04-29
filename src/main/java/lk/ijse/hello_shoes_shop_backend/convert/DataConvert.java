@@ -71,4 +71,13 @@ public class DataConvert {
     public OrderEntity orderDtoConvertOrderEntity(OrderDto orderDto){
         return modelMapper.map(orderDto, OrderEntity.class);
     }
+
+    //
+    public ReturnDto returnEntityConvertReturnDto(ReturnEntity returnEntity){
+        return modelMapper.map(returnEntity, ReturnDto.class);
+    }
+
+    public ReturnEntity returnDtoConvertReturnEntity(ReturnDto returnDto){
+        return modelMapper.map(returnDto, ReturnEntity.class);
+    }
 }

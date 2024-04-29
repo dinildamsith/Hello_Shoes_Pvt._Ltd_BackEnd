@@ -26,7 +26,7 @@ public class ItemEntity {
     private double buyPrice;
 
 
-    @ManyToMany(mappedBy = "buyItem")
+    @ManyToMany(mappedBy = "buyItem",cascade = CascadeType.DETACH)
     private List<OrderEntity> order;
 
 
@@ -43,7 +43,7 @@ public class ItemEntity {
 
 
     //
-    @OneToMany(mappedBy = "itemEntititys",cascade = CascadeType.REMOVE,orphanRemoval =true)
+    @OneToMany(mappedBy = "itemEntititys")
     private List<StockEntity> stockEntityList;
 
 //    @OneToMany(mappedBy = "item")

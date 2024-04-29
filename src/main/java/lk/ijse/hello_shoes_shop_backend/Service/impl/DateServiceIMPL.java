@@ -1,6 +1,7 @@
 package lk.ijse.hello_shoes_shop_backend.Service.impl;
 
 import lk.ijse.hello_shoes_shop_backend.Service.DateServices;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -9,6 +10,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 @Service
+@Component
 public class DateServiceIMPL implements DateServices {
     @Override
     public LocalDate orderLastReturnDay(Date orderPurchaseDate) {

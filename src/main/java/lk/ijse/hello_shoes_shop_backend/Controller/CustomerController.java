@@ -1,11 +1,14 @@
 package lk.ijse.hello_shoes_shop_backend.Controller;
 
+import jakarta.annotation.security.DeclareRoles;
+import jakarta.annotation.security.RolesAllowed;
 import lk.ijse.hello_shoes_shop_backend.Dto.CustomerDto;
 import lk.ijse.hello_shoes_shop_backend.Dto.SupplierDto;
 import lk.ijse.hello_shoes_shop_backend.Service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -45,6 +48,7 @@ public class CustomerController {
        customerService.updateCustomer(updateId,customerDto);
     }
     @DeleteMapping(value = "delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteCustomer(@PathVariable ("id") String deleteCustomerId){
         String deleteCustomer = customerService.deleteCustomer(deleteCustomerId);
         return deleteCustomer;

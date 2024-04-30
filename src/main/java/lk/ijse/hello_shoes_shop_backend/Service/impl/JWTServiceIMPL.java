@@ -53,12 +53,14 @@ public class JWTServiceIMPL implements JWTService {
     private String generateToken(Map<String,Object> extractClaims, UserEntity userEntity){
         Claims claims = Jwts.claims().setSubject(userEntity.getEmail());
         claims.put("name",userEntity.getName());
-        claims.put("role",userEntity.getRole());
+        //claims.put("role",userEntity.getRole());
+        extractClaims.put("role",userEntity.getAuthorities());
 
         Date tokenCreateTime = new Date();
         Date tokenValidity = new Date(tokenCreateTime.getTime() + TimeUnit.MINUTES.toMillis(accessTokenValidity));
         return Jwts.builder()
-                .setClaims(claims)
+                .setClaims(extractClaims)
+                .setSubject(userEntity.getEmail())
                 .setExpiration(tokenValidity)
                 .signWith(SignatureAlgorithm.HS256, jwtKey)
                 .compact();

@@ -16,14 +16,15 @@ import java.util.List;
 @RestController
 @RequestMapping("/customer")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class CustomerController {
 
     @Autowired
     CustomerService customerService;
 
 
-    @RequestMapping("/getAllCustomer")
-    @GetMapping
+    @RequestMapping(value = "/getAllCustomer",produces = "application/json")
+    @GetMapping(produces = "application/json")
     public List<CustomerDto> getAllCustomers(){
         List<CustomerDto> allCustomers = customerService.getAllCustomers();
         return allCustomers;

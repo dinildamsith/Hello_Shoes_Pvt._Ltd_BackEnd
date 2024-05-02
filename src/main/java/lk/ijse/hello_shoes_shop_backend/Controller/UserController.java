@@ -7,14 +7,12 @@ import lk.ijse.hello_shoes_shop_backend.reqAndResp.secure.SignIn;
 import lk.ijse.hello_shoes_shop_backend.reqAndResp.secure.SignUp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequestMapping("api/v1/user/")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class UserController {
     @Autowired
     UserService userService;
@@ -27,8 +25,11 @@ public class UserController {
     }
 
     @PostMapping("/signIn")
-    public ResponseEntity<JwtAuthResponse> signIn(@RequestBody SignIn signInReq){
-        return ResponseEntity.ok(authenticationService.signIn(signInReq));
+    public String signIn(@RequestBody SignIn signInReq){
+        JwtAuthResponse jwtAuthResponse = authenticationService.signIn(signInReq);
+        String token = jwtAuthResponse.getToken();
+        return token;
+
     }
 
 

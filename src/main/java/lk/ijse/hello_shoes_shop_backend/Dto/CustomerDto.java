@@ -1,5 +1,6 @@
 package lk.ijse.hello_shoes_shop_backend.Dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.Id;

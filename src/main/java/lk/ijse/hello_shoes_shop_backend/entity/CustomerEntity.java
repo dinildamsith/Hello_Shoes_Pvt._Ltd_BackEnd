@@ -1,5 +1,6 @@
 package lk.ijse.hello_shoes_shop_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lk.ijse.hello_shoes_shop_backend.enums.Gender;
 import lk.ijse.hello_shoes_shop_backend.enums.Level;
@@ -7,6 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.apache.commons.lang3.builder.ToStringExclude;
+import org.hibernate.annotations.Type;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -24,10 +26,12 @@ public class CustomerEntity implements SuperEntity{
     private String customerName;
     @Enumerated(EnumType.STRING)
     private Gender customerGender;
+    @Temporal(TemporalType.DATE)
     private Date customerJoinDate;
     @Enumerated(EnumType.STRING)
     private Level level;
     private int  totalPoints;
+    @Temporal(TemporalType.DATE)
     private Date birthDay;
     private String addressLine1;
     private String addressLine2;
@@ -36,8 +40,10 @@ public class CustomerEntity implements SuperEntity{
     private String addressLine5;
     private String contactNumber;
     private String email;
-    private Timestamp recentPurchaseDate;
+    @Temporal(TemporalType.DATE)
+    private Date recentPurchaseDate;
 
+    @JsonIgnore // Research  This Annotation
     @ToStringExclude
     @OneToMany(mappedBy = "customerDetails" ,targetEntity = OrderEntity.class , cascade = CascadeType.REMOVE,orphanRemoval =true)
     private List<OrderEntity> orderEntities = new ArrayList<>();

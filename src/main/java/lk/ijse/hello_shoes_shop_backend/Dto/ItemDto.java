@@ -21,7 +21,7 @@ public class ItemDto {
     private double unitPriceSale;
     private double expectedProfit;
     private double profitMargin;
-    private int status;
+    private String status;
     private double buyPrice;
     private List<SupplierEntity> supplierEntityList;
     private List<OrderEntity> orderEntityList;

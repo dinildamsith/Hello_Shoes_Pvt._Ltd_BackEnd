@@ -1,5 +1,6 @@
 package lk.ijse.hello_shoes_shop_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lk.ijse.hello_shoes_shop_backend.enums.Category;
 import lombok.AllArgsConstructor;
@@ -29,6 +30,7 @@ public class SupplierEntity implements SuperEntity{
     private String contact2;
     private String email;
 
+    @JsonIgnore // Research  This Annotation
     @ManyToMany(mappedBy = "supplierEntityList", cascade = CascadeType.DETACH)
     private List<ItemEntity> itemEntityList;
 

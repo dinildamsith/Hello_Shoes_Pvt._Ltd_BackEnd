@@ -54,6 +54,11 @@ public class ItemServiceIMPL implements ItemService {
 
             String haveQty = sizeRepo.checkItemHaveStock(stockEntity.getStockId());
 
+            if (50 < Integer.parseInt(qty)){
+                itemEntity.setStatus("Available");
+            }else if(50 > Integer.parseInt(qty)){
+                itemEntity.setStatus("Low");
+            }
 
             if (haveQty !=null){
                 int haveQtyConvert = Integer.parseInt(haveQty);

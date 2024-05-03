@@ -11,6 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/supplier")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class SupplierController {
 
     @Autowired
@@ -50,6 +51,7 @@ public class SupplierController {
         String deleteSupplier = supplierService.deleteSupplier(deleteSupplierId);
         return deleteSupplier;
     }
+
 
 
 }

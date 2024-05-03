@@ -1,5 +1,6 @@
 package lk.ijse.hello_shoes_shop_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -22,10 +23,11 @@ public class ItemEntity {
     private double unitPriceSale;
     private double expectedProfit;
     private double profitMargin;
-    private int status;
+    private String  status;
     private double buyPrice;
 
 
+    @JsonIgnore // Research  This Annotation
     @ManyToMany(mappedBy = "buyItem",cascade = CascadeType.DETACH)
     private List<OrderEntity> order;
 
@@ -34,7 +36,7 @@ public class ItemEntity {
 
 
 
-
+    @JsonIgnore // Research  This Annotation
     @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(
             name = "supplier_supply_item_details"
@@ -42,8 +44,8 @@ public class ItemEntity {
     private List<SupplierEntity> supplierEntityList;
 
 
-    //
-    @OneToMany(mappedBy = "itemEntititys")
+    @JsonIgnore // Research  This Annotation
+    @OneToMany(mappedBy = "itemEntititys",cascade = CascadeType.REMOVE)
     private List<StockEntity> stockEntityList;
 
 //    @OneToMany(mappedBy = "item")

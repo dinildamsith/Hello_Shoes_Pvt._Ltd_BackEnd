@@ -10,11 +10,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping("/item")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class ItemController {
 
     @Autowired
@@ -25,10 +27,10 @@ public class ItemController {
 
 
 
-    @PostMapping
     @RequestMapping("/save/{id}/{size}/{qty}")
     void saveItem(@PathVariable("id") String supplierId,
                   @PathVariable("size") String size,
+
                   @PathVariable("qty") String qty,
                   @RequestPart("item_code") String code,
                   @RequestPart("item_desc") String desc,
@@ -37,14 +39,14 @@ public class ItemController {
                   @RequestPart("salePrice") String salePrice,
                   @RequestPart("expectedProfit") String expectedProfit,
                   @RequestPart("profitMargin") String profitMargin,
-                  @RequestPart("status") String status,
                   @RequestPart("buyPrice") String buyPrice
 
-                  ){
+    ){
 
 
         ItemDto itemDto = new ItemDto();
 
+        System.out.println(pic);
 
         String picConvertBase64 = UtilMatters.convertBase64(pic);
         itemDto.setItemCode(code);
@@ -54,13 +56,13 @@ public class ItemController {
         itemDto.setUnitPriceSale(Double.parseDouble(salePrice));
         itemDto.setExpectedProfit(Double.parseDouble(expectedProfit));
         itemDto.setProfitMargin(Double.parseDouble(profitMargin));
-        itemDto.setStatus(Integer.parseInt(status));
         itemDto.setBuyPrice(Double.parseDouble(buyPrice));
 
         itemService.saveItem(supplierId,itemDto,size,qty);
 
 
     }
+
 
 
     @PutMapping
@@ -72,8 +74,6 @@ public class ItemController {
                     @RequestPart("category") String category,
                     @RequestPart("salePrice") String salePrice,
                     @RequestPart("expectedProfit") String expectedProfit,
-                    @RequestPart("profitMargin") String profitMargin,
-                    @RequestPart("status") String status,
                     @RequestPart("buyPrice") String buyPrice
     ){
 
@@ -87,8 +87,6 @@ public class ItemController {
         itemDto.setCategory(category);
         itemDto.setUnitPriceSale(Double.parseDouble(salePrice));
         itemDto.setExpectedProfit(Double.parseDouble(expectedProfit));
-        itemDto.setProfitMargin(Double.parseDouble(profitMargin));
-        itemDto.setStatus(Integer.parseInt(status));
         itemDto.setBuyPrice(Double.parseDouble(buyPrice));
 
 

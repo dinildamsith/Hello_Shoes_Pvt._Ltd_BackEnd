@@ -109,16 +109,7 @@ public class EmployeeController {
         employeeDto.setGuardianName(guardName);
         employeeDto.setEmergencyContact(emgContact);
 
-//        System.out.println(employeeDto);
-//       // String employeeUserAccDetails = employeeService.saveEmployee(employeeDto);
-//        ArrayList<String> strings = employeeService.saveEmployee(employeeDto);
-//        System.out.println(strings.get(0));
-//
-//        UserEntity userEntity = new UserEntity(strings.get(1),employeeDto.getEmployeeName(),strings.get(2),employeeDto.getRole(),employeeDto.getEmployeeCode());
-//
-//
-//        System.out.println(userEntity);
-//        userRepo.save(userEntity);
+
         String employeeToken = employeeService.saveEmployee(employeeDto);
         return employeeToken;
     }

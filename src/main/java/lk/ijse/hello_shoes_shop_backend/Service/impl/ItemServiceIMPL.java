@@ -34,6 +34,11 @@ public class ItemServiceIMPL implements ItemService {
     SizeRepo sizeRepo;
 
 
+    @Override
+    public List<ItemDto> getAllItems() {
+        List<ItemEntity> all = itemRepo.findAll();
+        return dataConvert.itemEntityListConvertItemDtoList(all);
+    }
 
     @Override
     public void saveItem(String itemSupplySupplierId ,ItemDto itemDto,String size,String qty) {
@@ -133,6 +138,14 @@ public class ItemServiceIMPL implements ItemService {
     public void deleteItem(String deleteItemId) {
         itemRepo.deleteById(deleteItemId);
     }
+
+    @Override
+    public ItemDto searchItem(String searchItemId) {
+        ItemEntity itemEntity = itemRepo.findById(searchItemId).orElse(null);
+        return dataConvert.itemEntityConvertItemDto(itemEntity);
+    }
+
+
 
 
 }

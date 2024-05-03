@@ -26,6 +26,13 @@ public class ItemController {
     DataConvert dataConvert;
 
 
+    @GetMapping
+    @RequestMapping("/allItems")
+    List<ItemDto> getAllItems(){
+        List<ItemDto> allItems = itemService.getAllItems();
+        return allItems;
+    }
+
 
     @RequestMapping("/save/{id}/{size}/{qty}")
     void saveItem(@PathVariable("id") String supplierId,
@@ -98,4 +105,13 @@ public class ItemController {
     void deleteItem(@PathVariable ("id") String deleteItemId){
         itemService.deleteItem(deleteItemId);
     }
+
+    @GetMapping
+    @RequestMapping("/search/{id}")
+    ItemDto searchItem(@PathVariable("id") String searchItemId){
+        ItemDto itemDto = itemService.searchItem(searchItemId);
+        return itemDto;
+    }
+
+
 }

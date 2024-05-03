@@ -17,9 +17,7 @@ public interface SizeRepo extends JpaRepository<StockEntity,String> {
     @Query(value = "SELECT * FROM size WHERE itemId = ?1 AND itemSize = ?2", nativeQuery = true)
     StockEntity getItemQty(String itemId,String itemSize);
 
-    @Query(value = "SELECT * FROM size WHERE itemId = ?1 ", nativeQuery = true)
-    StockEntity getI(String itemId);
 
-   // SELECT * FROM size WHERE itemId='I001' and  itemSize='27'
+
 
 }

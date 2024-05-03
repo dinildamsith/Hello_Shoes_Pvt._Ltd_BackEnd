@@ -5,13 +5,11 @@ import lk.ijse.hello_shoes_shop_backend.Dto.ReturnDto;
 import lk.ijse.hello_shoes_shop_backend.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/order")
+@CrossOrigin(origins = "http://127.0.0.1:5500")
 public class OrderController {
 
     @Autowired

@@ -63,6 +63,9 @@ public class DataConvert {
     public ItemDto itemEntityConvertItemDto(ItemEntity itemEntity){
         return modelMapper.map(itemEntity, ItemDto.class);
     }
+    public List<ItemDto> itemEntityListConvertItemDtoList(List<ItemEntity> itemEntityList){
+        return modelMapper.map(itemEntityList, List.class);
+    }
 
     //order Data
     public OrderDto orderEntityConvertOrderDto(OrderEntity orderEntity){

@@ -36,7 +36,7 @@ public class ItemEntity {
 
 
 
-    @JsonIgnore // Research  This Annotation
+
     @ManyToMany(cascade = CascadeType.DETACH)
     @JoinTable(
             name = "supplier_supply_item_details"

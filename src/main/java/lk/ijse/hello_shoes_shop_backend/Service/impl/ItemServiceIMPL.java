@@ -145,7 +145,25 @@ public class ItemServiceIMPL implements ItemService {
         return dataConvert.itemEntityConvertItemDto(itemEntity);
     }
 
+    @Override
+    public String getLastItemId() {
+        String lastItemId = itemRepo.getLastItemId();
 
+        // Find the index of the first digit in the string
+        int index = 0;
+        for (int i = 0; i < lastItemId.length(); i++) {
+            if (Character.isDigit(lastItemId.charAt(i))) {
+                index = i;
+                break;
+            }
+        }
+
+        // Remove the first English letters
+        String itemIdWithoutLetters = lastItemId.substring(index);
+
+
+        return itemIdWithoutLetters;
+    }
 
 
 }

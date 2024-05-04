@@ -11,6 +11,8 @@ import java.util.List;
 @Repository
 public interface ItemRepo extends JpaRepository<ItemEntity,String> {
 
+    @Query(value = "SELECT itemCode FROM item ORDER BY itemCode DESC LIMIT 1", nativeQuery = true)
+    String getLastItemId();
 
 
 }

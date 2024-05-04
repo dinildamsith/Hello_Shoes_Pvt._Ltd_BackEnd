@@ -14,6 +14,6 @@ public interface ItemService {
 
     ItemDto searchItem(String searchItemId);
 
-
+    String getLastItemId();
 
 }

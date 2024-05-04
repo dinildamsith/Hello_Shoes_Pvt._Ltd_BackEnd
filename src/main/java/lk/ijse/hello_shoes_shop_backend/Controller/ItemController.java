@@ -113,5 +113,10 @@ public class ItemController {
         return itemDto;
     }
 
+    @GetMapping
+    @RequestMapping("/lastId")
+    public String lastIdGet(){
+        return itemService.getLastItemId();
+    }
 
 }

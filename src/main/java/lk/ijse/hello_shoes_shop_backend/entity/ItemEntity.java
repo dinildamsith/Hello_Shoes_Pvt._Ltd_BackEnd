@@ -40,7 +40,7 @@ public class ItemEntity {
 
 
 
-    @ManyToMany(cascade = CascadeType.DETACH)
+    @ManyToMany(cascade = CascadeType.REMOVE)
     @JoinTable(
             name = "supplier_supply_item_details"
     )

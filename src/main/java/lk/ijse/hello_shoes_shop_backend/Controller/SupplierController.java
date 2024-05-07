@@ -11,7 +11,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/supplier")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = "http://127.0.0.1:5500", methods = {RequestMethod.PATCH, RequestMethod.DELETE ,RequestMethod.POST,RequestMethod.PUT,RequestMethod.GET})
 public class SupplierController {
 
     @Autowired

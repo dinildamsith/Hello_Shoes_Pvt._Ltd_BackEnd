@@ -31,7 +31,7 @@ public class SupplierEntity implements SuperEntity{
     private String email;
 
     @JsonIgnore // Research  This Annotation
-    @ManyToMany(mappedBy = "supplierEntityList", cascade = CascadeType.DETACH)
+    @ManyToMany(mappedBy = "supplierEntityList", cascade = CascadeType.REMOVE)
     private List<ItemEntity> itemEntityList;
 
 

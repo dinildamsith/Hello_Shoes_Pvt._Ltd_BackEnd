@@ -64,46 +64,7 @@ public class EmployeeServiceIMPL implements EmployeeService {
             System.out.println(userEntity);
 
             String token = jwtService.generateToken(userEntity);
-
-            //  UserDto userDto = dataConvert.userEntityConvertUserDto(userEntity);
-            //  System.out.println(userDto);
-            //  userService.saveUser(userDto);
             userRepo.save(userEntity);
-
-            //            SignUp signUp = new SignUp();
-//            signUp.setEmail(employeeDto.getEmail());
-//            signUp.setRole(employeeDto.getRole());
-//            signUp.setEmp_Id(employeeDto.getEmployeeCode());
-//            signUp.setPassword(employeeDto.getEmployeeName() + "1234");
-//            JwtAuthResponse jwtAuthResponse = authenticationService.signUp(signUp);
-//
-//
-//            ArrayList<String> accDetails = new ArrayList<>();
-//            System.out.println(employeeDto.getEmail());
-//            accDetails.add(employeeDto.getEmployeeCode());
-//            accDetails.add(employeeDto.getEmail());
-//            accDetails.add(signUp.getPassword());
-//            accDetails.add(jwtAuthResponse.getToken());
-
-//            return "Employee Email Name: " + employeeDto.getEmail() + "\n" +
-//                    "Employee Password: " + signUp.getPassword() + "\n" +
-//                    "Token: " + jwtAuthResponse;
-//            String password = employeeDto.getEmployeeName() + "1234";
-//            UserEntity userEntity = new UserEntity();
-//            userEntity.setEmail(employeeDto.getEmail());
-//            userEntity.setName(employeeDto.getEmployeeName());
-//            userEntity.setPassword(password);
-//            userEntity.setRole(employeeDto.getRole());
-//            employeeEntity.setEmployeeCode(employeeDto.getEmployeeCode());
-//            userEntity.setEmployeeEntity(employeeEntity);
-//            System.out.println(userEntity);
-//
-//
-//            System.out.println(userEntity);
-//            UserDto userDto = dataConvert.userEntityConvertUserDto(userEntity);
-//            System.out.println(userDto);
-//            userService.saveUser(userDto);
-
 
             return token + "\n" + password + "\n" + employeeDto.getEmail();
         } else {

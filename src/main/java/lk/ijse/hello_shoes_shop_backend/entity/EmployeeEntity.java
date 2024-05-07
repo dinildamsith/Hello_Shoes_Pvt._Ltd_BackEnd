@@ -25,7 +25,9 @@ public class EmployeeEntity implements SuperEntity{
     private String status;
     private String designation;
     private Role role;
+    @Temporal(TemporalType.DATE)
     private Date birthDay;
+    @Temporal(TemporalType.DATE)
     private Date joinDate;
     private String attachedBranch;
     private String address1;

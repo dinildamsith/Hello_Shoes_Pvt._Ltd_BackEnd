@@ -18,6 +18,7 @@ public class OrderController {
     @PostMapping
     @RequestMapping("/save")
     public void saveOrder(@RequestBody OrderDto orderDto){
+        System.out.println(orderDto);
         orderService.saveOrder(orderDto);
     }
 

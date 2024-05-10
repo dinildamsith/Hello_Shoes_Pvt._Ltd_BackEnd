@@ -23,6 +23,7 @@ public class StockEntity implements SuperEntity{
     @JoinColumn(name = "itemId")
     private ItemEntity itemEntititys;
 
+
 //    @OneToMany(mappedBy = "size")
 //    private List<StockEntity> stock;
 }

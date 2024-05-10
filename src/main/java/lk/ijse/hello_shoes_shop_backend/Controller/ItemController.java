@@ -4,13 +4,13 @@ import lk.ijse.hello_shoes_shop_backend.Dto.ItemDto;
 import lk.ijse.hello_shoes_shop_backend.Service.ItemService;
 import lk.ijse.hello_shoes_shop_backend.convert.DataConvert;
 
-import lk.ijse.hello_shoes_shop_backend.entity.SupplierEntity;
 import lk.ijse.hello_shoes_shop_backend.util.UtilMatters;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -118,5 +118,16 @@ public class ItemController {
     public String lastIdGet(){
         return itemService.getLastItemId();
     }
+
+
+    @GetMapping
+    @RequestMapping("/selectItemSizesGet/{id}")
+    public List<String>  selectItemHasAllSizesGet(@PathVariable ("id") String itemId){
+        List<String> selectedItemHasAllSizes = itemService.selectItemHasAllSizesGet(itemId);
+        return selectedItemHasAllSizes;
+    }
+
+
+
 
 }

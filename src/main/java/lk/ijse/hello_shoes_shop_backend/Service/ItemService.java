@@ -4,6 +4,7 @@ import lk.ijse.hello_shoes_shop_backend.Dto.CustomerDto;
 import lk.ijse.hello_shoes_shop_backend.Dto.ItemDto;
 import lk.ijse.hello_shoes_shop_backend.entity.StockEntity;
 
+import java.sql.ResultSet;
 import java.util.List;
 
 public interface ItemService {
@@ -15,5 +16,7 @@ public interface ItemService {
     ItemDto searchItem(String searchItemId);
 
     String getLastItemId();
+
+    List<String> selectItemHasAllSizesGet(String selectItemId);
 
 }

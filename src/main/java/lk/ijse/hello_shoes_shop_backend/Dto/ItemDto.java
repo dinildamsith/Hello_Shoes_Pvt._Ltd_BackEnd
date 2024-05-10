@@ -7,11 +7,13 @@ import lk.ijse.hello_shoes_shop_backend.entity.SupplierEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
 @AllArgsConstructor
 @Data
+@ToString
 @NoArgsConstructor
 public class ItemDto {
     private String itemCode;

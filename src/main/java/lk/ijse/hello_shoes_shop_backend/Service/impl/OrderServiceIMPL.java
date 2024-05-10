@@ -62,7 +62,9 @@ public class OrderServiceIMPL implements OrderService {
             customerRepo.save(customerEntity);
        }
         ItemEntity itemEntity2 = orderDto.getBuyItem().get(0);
-        StockEntity stockEntity = sizeRepo.getItemQty(itemEntity2.getItemCode(), String.valueOf(orderDto.getSize()));
+        System.out.println(itemEntity2);
+       StockEntity stockEntity = sizeRepo.getItemQty(itemEntity2.getItemCode(), String.valueOf(orderDto.getSize()));
+        System.out.println(stockEntity.getQty());
         int i = Integer.parseInt(stockEntity.getQty());
         int x = i-orderDto.getQty();
         stockEntity.setQty(String.valueOf(x));

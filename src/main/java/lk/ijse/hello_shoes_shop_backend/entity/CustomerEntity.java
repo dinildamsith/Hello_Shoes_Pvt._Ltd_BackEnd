@@ -7,6 +7,7 @@ import lk.ijse.hello_shoes_shop_backend.enums.Level;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import org.apache.commons.lang3.builder.ToStringExclude;
 import org.hibernate.annotations.Type;
 
@@ -15,7 +16,9 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 @Data
+@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity

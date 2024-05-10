@@ -6,6 +6,7 @@ import lk.ijse.hello_shoes_shop_backend.enums.Category;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -13,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
+@ToString
 @Table(name = "supplier")
 public class SupplierEntity implements SuperEntity{
     @Id

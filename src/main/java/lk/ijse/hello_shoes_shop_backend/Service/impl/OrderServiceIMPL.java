@@ -133,4 +133,19 @@ public class OrderServiceIMPL implements OrderService {
         }
 
     }
+
+    @Override
+    public String getLastOrderId() {
+        String lastOrderId = orderRepo.getLastOrderId();
+        if (lastOrderId == null || lastOrderId.isEmpty()) {
+            return "O0001";
+        } else {
+            String numericPart = lastOrderId.replaceAll("\\D", ""); // Remove non-numeric characters
+            int x = Integer.parseInt(numericPart);
+            x++; // Increment the numeric part
+            String nextOrderId = String.format("O%04d", x); // Format the incremented value back into the order ID format
+            return nextOrderId;
+        }
+
+    }
 }

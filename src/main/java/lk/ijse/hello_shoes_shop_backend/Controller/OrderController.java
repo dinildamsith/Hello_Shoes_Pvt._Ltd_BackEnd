@@ -28,4 +28,11 @@ public class OrderController {
         orderService.returnOrder(returnDto);
     }
 
+
+    @GetMapping
+    @RequestMapping("/newOrderId")
+    public String nextOrderIdGet(){
+        return orderService.getLastOrderId();
+    }
+
 }

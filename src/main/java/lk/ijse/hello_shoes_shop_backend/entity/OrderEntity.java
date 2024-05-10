@@ -36,7 +36,6 @@ public class OrderEntity implements SuperEntity{
     CustomerEntity customerDetails;
 
 
-
     @ManyToMany(cascade = CascadeType.DETACH)
     private List<ItemEntity> buyItem;
 

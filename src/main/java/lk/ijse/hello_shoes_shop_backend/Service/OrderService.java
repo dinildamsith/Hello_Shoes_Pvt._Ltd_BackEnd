@@ -10,5 +10,7 @@ public interface OrderService {
     void saveOrder(OrderDto orderDto);
     void returnOrder(ReturnDto returnDto);
 
+    String getLastOrderId();
+
 
 }

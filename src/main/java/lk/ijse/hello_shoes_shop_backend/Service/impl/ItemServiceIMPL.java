@@ -52,7 +52,7 @@ public class ItemServiceIMPL implements ItemService {
             ItemEntity itemEntity = dataConvert.itemDtoConvertItemEntity(itemDto);
             StockEntity stockEntity = new StockEntity();
 
-            stockEntity.setStockId(itemDto.getItemDesc()+""+size);
+            stockEntity.setStockId(itemDto.getItemDesc()+ " ( size - "+size+")");
             stockEntity.setItemSize(size);
             stockEntity.setQty(qty);
             stockEntity.setItemEntititys(itemEntity);

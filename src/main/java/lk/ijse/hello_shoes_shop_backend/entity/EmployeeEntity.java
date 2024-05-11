@@ -1,5 +1,6 @@
 package lk.ijse.hello_shoes_shop_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lk.ijse.hello_shoes_shop_backend.enums.Gender;
 import lk.ijse.hello_shoes_shop_backend.enums.Role;
@@ -41,6 +42,7 @@ public class EmployeeEntity implements SuperEntity{
     private String emergencyContact;
 
     @OneToMany(mappedBy = "employeeEntity")
+    @JsonIgnore
     private List<OrderEntity> sales;
 
 }

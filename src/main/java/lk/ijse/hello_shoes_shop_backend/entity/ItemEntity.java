@@ -33,7 +33,8 @@ public class ItemEntity {
 
 
     @JsonIgnore // Research  This Annotation
-    @ManyToMany(mappedBy = "buyItem",cascade = CascadeType.DETACH)
+
+    @ManyToMany(mappedBy = "buyItem",cascade = CascadeType.REMOVE)
     private List<OrderEntity> order;
 
 

@@ -92,6 +92,56 @@ public class ItemServiceIMPL implements ItemService {
              stockEntityList.add(stockEntity);
 
 
+            // Set Item Type
+            switch (itemDto.getItemType()) {
+                case "M":
+                    itemEntity.setItemType("MEN");
+                    break;
+                case "W":
+                    itemEntity.setItemType("WOMEN");
+            }
+
+            // Set Verities Type
+            switch (itemDto.getVerities()){
+                case "H":
+                    itemEntity.setVerities("Heel");
+                    break;
+                case "F":
+                    itemEntity.setVerities("Flats");
+                    break;
+                case "W":
+                    itemEntity.setVerities("Wedges");
+                    break;
+                case "FF":
+                    itemEntity.setVerities("Flip Flops");
+                    break;
+                case "SD":
+                    itemEntity.setVerities("Sandals");
+                    break;
+                case "S":
+                    itemEntity.setVerities("Shoes");
+                    break;
+                case "SL":
+                    itemEntity.setVerities("Slippers");
+            }
+
+            // set occasion type
+            switch (itemDto.getOccasion()){
+                case "F":
+                    itemEntity.setOccasion("Formal");
+                    break;
+                case "C":
+                    itemEntity.setOccasion("Casual");
+                    break;
+                case "I":
+                    itemEntity.setOccasion("Industrial");
+                    break;
+                case "S":
+                    itemEntity.setOccasion("Sport");
+                    break;
+            }
+
+
             itemRepo.save(itemEntity);
             sizeRepo.save(stockEntity);
 
@@ -127,6 +177,56 @@ public class ItemServiceIMPL implements ItemService {
 
             updateItemEntity.setSupplierEntityList(supplierEntityList);
             supplierEntity.setItemEntityList(itemEntityList);
+
+            // Set Item Type
+            switch (updateItemDetailsDto.getItemType()) {
+                case "M":
+                    updateItemEntity.setItemType("MEN");
+                    break;
+                case "W":
+                    updateItemEntity.setItemType("WOMEN");
+            }
+
+            // Set Verities Type
+            switch (updateItemDetailsDto.getVerities()){
+                case "H":
+                    updateItemEntity.setVerities("Heel");
+                    break;
+                case "F":
+                    updateItemEntity.setVerities("Flats");
+                    break;
+                case "W":
+                    updateItemEntity.setVerities("Wedges");
+                    break;
+                case "FF":
+                    updateItemEntity.setVerities("Flip Flops");
+                    break;
+                case "SD":
+                    updateItemEntity.setVerities("Sandals");
+                    break;
+                case "S":
+                    updateItemEntity.setVerities("Shoes");
+                    break;
+                case "SL":
+                    updateItemEntity.setVerities("Slippers");
+            }
+
+            // set occasion type
+            switch (updateItemDetailsDto.getOccasion()){
+                case "F":
+                    updateItemEntity.setOccasion("Formal");
+                    break;
+                case "C":
+                    updateItemEntity.setOccasion("Casual");
+                    break;
+                case "I":
+                    updateItemEntity.setOccasion("Industrial");
+                    break;
+                case "S":
+                    updateItemEntity.setOccasion("Sport");
+                    break;
+            }
+
 
             itemRepo.save(updateItemEntity);
         }else{

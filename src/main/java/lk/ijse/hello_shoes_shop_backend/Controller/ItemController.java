@@ -43,6 +43,9 @@ public class ItemController {
                   @RequestPart("item_desc") String desc,
                   @RequestPart("item_pic") String pic,
                   @RequestPart("category") String category,
+                  @RequestPart("itemType") String itemType,
+                  @RequestPart("occasion") String occasion,
+                  @RequestPart("verities") String verities,
                   @RequestPart("salePrice") String salePrice,
                   @RequestPart("expectedProfit") String expectedProfit,
                   @RequestPart("profitMargin") String profitMargin,
@@ -60,6 +63,9 @@ public class ItemController {
         itemDto.setItemDesc(desc);
         itemDto.setItemPic(picConvertBase64);
         itemDto.setCategory(category);
+        itemDto.setItemType(itemType);
+        itemDto.setOccasion(occasion);
+        itemDto.setVerities(verities);
         itemDto.setUnitPriceSale(Double.parseDouble(salePrice));
         itemDto.setExpectedProfit(Double.parseDouble(expectedProfit));
         itemDto.setProfitMargin(Double.parseDouble(profitMargin));
@@ -79,6 +85,9 @@ public class ItemController {
                     @RequestPart("item_desc") String desc,
                     @RequestPart("item_pic") String pic,
                     @RequestPart("category") String category,
+                    @RequestPart("itemType") String itemType,
+                    @RequestPart("occasion") String occasion,
+                    @RequestPart("verities") String verities,
                     @RequestPart("salePrice") String salePrice,
                     @RequestPart("expectedProfit") String expectedProfit,
                     @RequestPart("buyPrice") String buyPrice
@@ -92,6 +101,9 @@ public class ItemController {
         itemDto.setItemDesc(desc);
         itemDto.setItemPic(picConvertBase64);
         itemDto.setCategory(category);
+        itemDto.setItemType(itemType);
+        itemDto.setOccasion(occasion);
+        itemDto.setVerities(verities);
         itemDto.setUnitPriceSale(Double.parseDouble(salePrice));
         itemDto.setExpectedProfit(Double.parseDouble(expectedProfit));
         itemDto.setBuyPrice(Double.parseDouble(buyPrice));

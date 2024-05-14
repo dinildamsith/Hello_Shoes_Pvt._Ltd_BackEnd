@@ -22,9 +22,9 @@ public class ItemEntity {
     @Column(columnDefinition = "LONGTEXT")
     private String itemPic;
     private String Category;
-//    private String verities;
-//    private String occasion;
-//    private String gender;
+    private String verities;
+    private String occasion;
+    private String itemType;
     private double unitPriceSale;
     private double expectedProfit;
     private double profitMargin;

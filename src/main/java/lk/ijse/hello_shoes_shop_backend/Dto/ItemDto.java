@@ -20,6 +20,9 @@ public class ItemDto {
     private String itemDesc;
     private String itemPic;
     private String Category;
+    private String verities;
+    private String occasion;
+    private String itemType;
     private double unitPriceSale;
     private double expectedProfit;
     private double profitMargin;

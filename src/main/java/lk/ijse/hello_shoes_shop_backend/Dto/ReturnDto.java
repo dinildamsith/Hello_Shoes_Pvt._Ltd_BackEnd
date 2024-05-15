@@ -18,6 +18,6 @@ public class ReturnDto {
     private String itemDes;
     private String size;
     private String qty;
-    private Date returnDate;
+    private String returnDate;
     private OrderEntity orderEntity;
 }

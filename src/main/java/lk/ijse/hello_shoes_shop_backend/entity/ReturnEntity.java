@@ -4,12 +4,14 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import java.util.Date;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@ToString
 @Table(name = "return_details")
 @Entity
 public class ReturnEntity implements SuperEntity{
@@ -20,6 +22,7 @@ public class ReturnEntity implements SuperEntity{
     private String size;
     private String qty;
     private Date  returnDate;
+
 
 
     @OneToOne

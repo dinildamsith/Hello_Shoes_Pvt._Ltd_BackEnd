@@ -19,7 +19,7 @@ import java.util.List;
 public class OrderEntity implements SuperEntity{
     @Id
     private String orderCode;
-    @Temporal(TemporalType.DATE)
+//    @Temporal(TemporalType.DATE)
     private Date purchaseDate;
     private String customerName;
     private String itemDesc;
@@ -45,6 +45,9 @@ public class OrderEntity implements SuperEntity{
     @JoinColumn//(name = "order_sale_EmployeeId")
     private EmployeeEntity employeeEntity;
 
+
+
+    @JsonIgnore/////////////////////////////////////////////////////////////////
     @OneToOne(mappedBy = "orderEntity")
     private ReturnEntity returnEntity;
 

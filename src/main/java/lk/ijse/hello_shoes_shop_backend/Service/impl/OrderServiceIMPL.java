@@ -148,4 +148,10 @@ public class OrderServiceIMPL implements OrderService {
         }
 
     }
+
+    @Override
+    public List<OrderDto> getAllOrders() {
+        List<OrderEntity> allOrder = orderRepo.findAll();
+        return dataConvert.ordeEntityListConvertOrdeDtoList(allOrder);
+    }
 }

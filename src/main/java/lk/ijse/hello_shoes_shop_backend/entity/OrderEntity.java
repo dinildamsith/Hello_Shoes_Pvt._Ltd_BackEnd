@@ -19,6 +19,7 @@ import java.util.List;
 public class OrderEntity implements SuperEntity{
     @Id
     private String orderCode;
+    @Temporal(TemporalType.DATE)
     private Date purchaseDate;
     private String customerName;
     private String itemDesc;

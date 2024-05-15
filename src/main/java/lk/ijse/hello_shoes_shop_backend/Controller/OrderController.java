@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/order")
 @CrossOrigin(origins = "http://127.0.0.1:5500")
@@ -33,6 +35,13 @@ public class OrderController {
     @RequestMapping("/newOrderId")
     public String nextOrderIdGet(){
         return orderService.getLastOrderId();
+    }
+
+    @GetMapping
+    @RequestMapping("/getAllOrders")
+    public List<OrderDto> getAllOrders(){
+        List<OrderDto> allOrders = orderService.getAllOrders();
+        return allOrders;
     }
 
 }

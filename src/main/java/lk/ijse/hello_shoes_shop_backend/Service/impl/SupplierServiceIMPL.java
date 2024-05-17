@@ -38,7 +38,8 @@ public class SupplierServiceIMPL implements SupplierService {
         boolean existsBySupplierId = supplierRepo.existsById(searchSupplierId);
 
         if (existsBySupplierId){
-            return dataConvert.supplierEntityConvertSupplierDto(supplierRepo.getReferenceById(searchSupplierId));
+            SupplierEntity supplierEntity = supplierRepo.findById(searchSupplierId).get();
+            return dataConvert.supplierEntityConvertSupplierDto(supplierEntity);
         }else {
             System.out.println("This Id Have nO Customer");
         }

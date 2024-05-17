@@ -7,6 +7,7 @@ import lk.ijse.hello_shoes_shop_backend.convert.DataConvert;
 import lk.ijse.hello_shoes_shop_backend.util.UtilMatters;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.context.request.async.AsyncRequestTimeoutException;
@@ -80,6 +81,7 @@ public class ItemController {
 
     @PutMapping
     @RequestMapping("/update/{id}/{supplierId}")
+    @PreAuthorize("hasRole('ADMIN')")
     void updateItem(@PathVariable("id") String updateItemId ,
                     @PathVariable("supplierId") String supplierId,
                     @RequestPart("item_desc") String desc,
@@ -114,6 +116,7 @@ public class ItemController {
 
     @DeleteMapping
     @RequestMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     void deleteItem(@PathVariable ("id") String deleteItemId){
         itemService.deleteItem(deleteItemId);
     }

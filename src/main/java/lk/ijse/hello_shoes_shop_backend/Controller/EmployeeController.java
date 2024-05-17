@@ -179,6 +179,7 @@ public class EmployeeController {
 
     @DeleteMapping
     @RequestMapping("/delete/{email}/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteEmployee(@PathVariable ("email") String userDeleteEmail, @PathVariable ("id") String employeeDeleteId) {
         String s = employeeService.deleteEmployee(userDeleteEmail, employeeDeleteId);
         return s;

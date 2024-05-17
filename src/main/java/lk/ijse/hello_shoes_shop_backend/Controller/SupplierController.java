@@ -4,6 +4,7 @@ import lk.ijse.hello_shoes_shop_backend.Dto.SupplierDto;
 import lk.ijse.hello_shoes_shop_backend.Service.SupplierService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -47,6 +48,7 @@ public class SupplierController {
 
     @DeleteMapping
     @RequestMapping("/delete/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
     public String deleteSupplier(@PathVariable ("id") String deleteSupplierId){
         String deleteSupplier = supplierService.deleteSupplier(deleteSupplierId);
         return deleteSupplier;

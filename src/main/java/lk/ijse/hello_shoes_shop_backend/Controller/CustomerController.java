@@ -1,10 +1,12 @@
 package lk.ijse.hello_shoes_shop_backend.Controller;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.annotation.security.DeclareRoles;
 import jakarta.annotation.security.RolesAllowed;
 import lk.ijse.hello_shoes_shop_backend.Dto.CustomerDto;
 import lk.ijse.hello_shoes_shop_backend.Dto.SupplierDto;
 import lk.ijse.hello_shoes_shop_backend.Service.CustomerService;
+import lk.ijse.hello_shoes_shop_backend.Service.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +24,9 @@ public class CustomerController {
 
     @Autowired
     CustomerService customerService;
+
+    @Autowired
+    EmailService emailService;
 
 
     @RequestMapping(value = "/getAllCustomer",produces = "application/json")
@@ -54,6 +59,11 @@ public class CustomerController {
     public String deleteCustomer(@PathVariable ("id") String deleteCustomerId){
         String deleteCustomer = customerService.deleteCustomer(deleteCustomerId);
         return deleteCustomer;
+    }
+
+    @PostConstruct
+    public void birthdayGreetingsToCustomers(){
+        emailService.birthdayGreetingsToCustomers();
     }
 
 }

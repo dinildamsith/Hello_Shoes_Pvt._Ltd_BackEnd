@@ -44,4 +44,10 @@ public class OrderController {
         return allOrders;
     }
 
+    @GetMapping
+    @RequestMapping("/returnNextId")
+    public void getReturnOrderIdNext(){
+
+    }
+
 }

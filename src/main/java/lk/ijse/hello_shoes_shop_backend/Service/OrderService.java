@@ -15,5 +15,7 @@ public interface OrderService {
 
     List<OrderDto> getAllOrders();
 
+    String getNextReturnId();
+
 
 }

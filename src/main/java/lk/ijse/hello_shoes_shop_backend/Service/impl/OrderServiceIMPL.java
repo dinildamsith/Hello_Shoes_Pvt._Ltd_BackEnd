@@ -154,4 +154,9 @@ public class OrderServiceIMPL implements OrderService {
         List<OrderEntity> allOrder = orderRepo.findAll();
         return dataConvert.ordeEntityListConvertOrdeDtoList(allOrder);
     }
+
+    @Override
+    public String getNextReturnId() {
+        return null;
+    }
 }

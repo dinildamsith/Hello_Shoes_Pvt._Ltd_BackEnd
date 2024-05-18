@@ -157,6 +157,16 @@ public class OrderServiceIMPL implements OrderService {
 
     @Override
     public String getNextReturnId() {
-        return null;
+        List<ReturnEntity> allReturnData = returnRepo.findAll();
+        if (allReturnData.isEmpty()){
+            return "R1";
+        }else{
+            int lastReturnId = 0;
+            for (ReturnEntity returnEntity :allReturnData) {
+                lastReturnId= Integer.parseInt(returnEntity.getReturnId().substring(1));
+            }
+            lastReturnId+=1;
+            return "R"+lastReturnId;
+        }
     }
 }

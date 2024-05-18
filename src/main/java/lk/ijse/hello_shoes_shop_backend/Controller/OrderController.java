@@ -46,8 +46,9 @@ public class OrderController {
 
     @GetMapping
     @RequestMapping("/returnNextId")
-    public void getReturnOrderIdNext(){
-
+    public String getReturnOrderIdNext(){
+        String nextReturnId = orderService.getNextReturnId();
+        return nextReturnId;
     }
 
 }

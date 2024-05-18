@@ -1,5 +1,6 @@
 package lk.ijse.hello_shoes_shop_backend.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;

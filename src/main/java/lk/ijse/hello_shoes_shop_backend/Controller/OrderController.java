@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/order")
-@CrossOrigin(origins = "http://127.0.0.1:5500")
+@CrossOrigin(origins = "http://127.0.0.1:5500", methods = {RequestMethod.PATCH, RequestMethod.DELETE ,RequestMethod.POST,RequestMethod.PUT,RequestMethod.GET})
 public class OrderController {
 
     @Autowired
@@ -49,6 +49,13 @@ public class OrderController {
     public String getReturnOrderIdNext(){
         String nextReturnId = orderService.getNextReturnId();
         return nextReturnId;
+    }
+
+    @GetMapping
+    @RequestMapping("/searchOrder/{id}")
+    public OrderDto searchOrder(@PathVariable ("id") String searchOrderId){
+        OrderDto orderDto = orderService.searchOrder(searchOrderId);
+        return orderDto;
     }
 
 }

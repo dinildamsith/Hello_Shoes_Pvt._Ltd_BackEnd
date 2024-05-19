@@ -169,4 +169,15 @@ public class OrderServiceIMPL implements OrderService {
             return "R"+lastReturnId;
         }
     }
+
+    @Override
+    public OrderDto searchOrder(String searchOrderId) {
+        OrderEntity orderEntity = orderRepo.findById(searchOrderId).orElse(null);
+        if (orderEntity != null){
+            return dataConvert.orderEntityConvertOrderDto(orderEntity);
+        }else{
+            return null;
+        }
+
+    }
 }

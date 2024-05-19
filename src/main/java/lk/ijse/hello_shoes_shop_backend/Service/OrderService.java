@@ -17,5 +17,7 @@ public interface OrderService {
 
     String getNextReturnId();
 
+    OrderDto searchOrder(String searchOrderId);
+
 
 }

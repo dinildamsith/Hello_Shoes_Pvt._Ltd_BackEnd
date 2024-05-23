@@ -87,12 +87,12 @@ public class EmployeeController {
         Date joinDateDate = java.sql.Date.valueOf(parsedJoinDate);
 
 
-        String picConvertBase64 = UtilMatters.convertBase64(emp_pic);
+
 
         EmployeeDto employeeDto  = new EmployeeDto();
         employeeDto.setEmployeeCode(emp_code);
         employeeDto.setEmployeeName(emp_name);
-        employeeDto.setEmployeePic(picConvertBase64);
+        employeeDto.setEmployeePic(emp_pic);
         employeeDto.setGender(Gender.valueOf(gender));
         employeeDto.setStatus(status);
         employeeDto.setDesignation(designation);

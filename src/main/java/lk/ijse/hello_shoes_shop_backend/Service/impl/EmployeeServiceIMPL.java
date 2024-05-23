@@ -3,6 +3,7 @@ package lk.ijse.hello_shoes_shop_backend.Service.impl;
 import lk.ijse.hello_shoes_shop_backend.Dao.EmployeeRepo;
 import lk.ijse.hello_shoes_shop_backend.Dao.UserRepo;
 import lk.ijse.hello_shoes_shop_backend.Dto.EmployeeDto;
+import lk.ijse.hello_shoes_shop_backend.Dto.MailDto;
 import lk.ijse.hello_shoes_shop_backend.Service.AuthenticationService;
 import lk.ijse.hello_shoes_shop_backend.Service.EmployeeService;
 import lk.ijse.hello_shoes_shop_backend.Service.JWTService;
@@ -52,6 +53,7 @@ public class EmployeeServiceIMPL implements EmployeeService {
             String password = employeeDto.getEmployeeName() + "1234";
             UserEntity userEntity = new UserEntity();
             EmployeeEntity employeeEntity = new EmployeeEntity();
+            MailDto mailDto = new MailDto();
 
             userEntity.setEmail(employeeDto.getEmail());
             userEntity.setName(employeeDto.getEmployeeName());
@@ -66,7 +68,12 @@ public class EmployeeServiceIMPL implements EmployeeService {
             String token = jwtService.generateToken(userEntity);
             userRepo.save(userEntity);
 
-            return token + "\n" + password + "\n" + employeeDto.getEmail();
+            mailDto.setTo(employeeDto.getEmail());
+            mailDto.setSubject("Hello "+employeeDto.getEmployeeName() + " You Register Done Hello Shoe System Management");
+            mailDto.setMsg("Token : "+token + "\n" + "Password  : " + password + "\n"+ "Email  : " + employeeDto.getEmail());
+            Thread thread = new Thread(mailDto);
+            thread.start();
+            return "Employee Save Done.";
         } else {
             System.out.println("Employee save unsuccessful");
         }

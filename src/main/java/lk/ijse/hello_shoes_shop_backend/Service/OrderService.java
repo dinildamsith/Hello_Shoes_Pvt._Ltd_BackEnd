@@ -5,11 +5,12 @@ import lk.ijse.hello_shoes_shop_backend.Dto.ReturnDto;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
 
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 public interface OrderService {
     void saveOrder(OrderDto orderDto);
-    void returnOrder(ReturnDto returnDto);
+    String returnOrder(ReturnDto returnDto);
 
     String getLastOrderId();
 
@@ -18,6 +19,13 @@ public interface OrderService {
     String getNextReturnId();
 
     OrderDto searchOrder(String searchOrderId);
+
+    Double totalSaleGet(String date);
+
+    List<OrderDto> branchWiseOrderDetailsGet(String branch);
+
+    //TODO
+//    String mostSaleItemGet();
 
 
 }

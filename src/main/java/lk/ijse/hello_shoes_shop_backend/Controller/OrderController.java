@@ -5,8 +5,10 @@ import lk.ijse.hello_shoes_shop_backend.Dto.ReturnDto;
 import lk.ijse.hello_shoes_shop_backend.Service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
+import org.springframework.data.repository.query.Param;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -26,8 +28,9 @@ public class OrderController {
 
     @PostMapping
     @RequestMapping("/return")
-    public void returnOrder(@RequestBody ReturnDto returnDto){
-        orderService.returnOrder(returnDto);
+    public String returnOrder(@RequestBody ReturnDto returnDto){
+        String massage = orderService.returnOrder(returnDto);
+        return massage;
     }
 
 
@@ -58,4 +61,25 @@ public class OrderController {
         return orderDto;
     }
 
+    @GetMapping
+    @RequestMapping("/getTotalSale/{date}")
+    public Double  getTotal(@PathVariable ("date") String date){
+        Double totalSaleSelectDate = orderService.totalSaleGet(date);
+        return totalSaleSelectDate;
+    }
+
+    @GetMapping
+    @RequestMapping("/branchWiseOrderDetailsGet/{branch}")
+    public List<OrderDto> branchWiseOrderDetailsGet(@PathVariable ("branch") String branch){
+        List<OrderDto> orderDtos = orderService.branchWiseOrderDetailsGet(branch);
+        return orderDtos;
+    }
+
+    //TODO
+//    @GetMapping
+//    @RequestMapping("/saleMostItem")
+//    public String getMostSaleItemImg(@RequestParam("date") String date) {
+////        String mostSaleItemGet = orderService.mostSaleItemGet();
+//        return mostSaleItemGet;
+//    }
 }

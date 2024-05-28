@@ -43,6 +43,7 @@ public class ItemEntity {
 
 
 
+
     @ManyToMany
     @JoinTable(
             name = "supplier_supply_item_details"

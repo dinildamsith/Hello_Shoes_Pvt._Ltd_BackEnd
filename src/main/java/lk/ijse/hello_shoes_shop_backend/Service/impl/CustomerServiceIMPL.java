@@ -40,9 +40,9 @@ public class CustomerServiceIMPL implements CustomerService {
 
         CustomerEntity searchCustomer = customerRepo.findById(searchCustomerId).orElse(null);
 
-        if (searchCustomer != null){
+        if (searchCustomer != null) {
             return dataConvert.customerEntityConvertCustomerDto(searchCustomer);
-        }else{
+        } else {
             System.out.println("id have no customer");
         }
         return null;
@@ -53,7 +53,8 @@ public class CustomerServiceIMPL implements CustomerService {
 
         CustomerEntity updateCustomer = customerRepo.findById(updateCustomerId).orElse(null);
 
-        if (updateCustomer != null){
+        if (updateCustomer != null) {
+
             updateCustomer.setCustomerName(updateCustomerDetailsDto.getCustomerName());
             updateCustomer.setCustomerGender(updateCustomerDetailsDto.getCustomerGender());
             updateCustomer.setCustomerJoinDate(updateCustomer.getCustomerJoinDate());
@@ -66,9 +67,10 @@ public class CustomerServiceIMPL implements CustomerService {
             updateCustomer.setContactNumber(updateCustomerDetailsDto.getContactNumber());
             updateCustomer.setEmail(updateCustomerDetailsDto.getEmail());
 
+            System.out.println(updateCustomer);
             customerRepo.save(updateCustomer);
             return "Update Customer";
-        }else{
+        } else {
             return "This Id Have Not Customer";
         }
     }
@@ -77,9 +79,9 @@ public class CustomerServiceIMPL implements CustomerService {
     public String deleteCustomer(String deleteCustomerId) {
         boolean checkIdHaveCustomer = customerRepo.existsById(deleteCustomerId);
 
-        if (checkIdHaveCustomer){
+        if (checkIdHaveCustomer) {
             customerRepo.deleteById(deleteCustomerId);
-        }else {
+        } else {
             return "This Id Have No Customer";
         }
         return null;

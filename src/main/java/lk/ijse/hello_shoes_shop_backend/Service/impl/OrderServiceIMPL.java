@@ -13,12 +13,14 @@ import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -38,6 +40,9 @@ public class OrderServiceIMPL implements OrderService {
     ItemRepo itemRepo;
     @Autowired
     DateServices dateServices;
+
+    @Autowired
+    EmployeeRepo employeeRepo;
 
     @Override
     public void saveOrder(OrderDto orderDto) {
@@ -85,6 +90,9 @@ public class OrderServiceIMPL implements OrderService {
         itemEntity.setOrder(orderEntityList);
 
 
+        customerEntity.setRecentPurchaseDate(orderDto.getPurchaseDate());
+
+        customerRepo.save(customerEntity);
         orderRepo.save(orderEntity);
 
 
@@ -92,7 +100,7 @@ public class OrderServiceIMPL implements OrderService {
     }
 
     @Override
-    public void returnOrder(ReturnDto returnDto) {
+    public String returnOrder(ReturnDto returnDto) {
 
         OrderEntity orderEntity = orderRepo.findById(returnDto.getOrderEntity().getOrderCode()).orElse(null);
         Date orderPurchaseDate = orderEntity.getPurchaseDate();
@@ -104,7 +112,7 @@ public class OrderServiceIMPL implements OrderService {
 
         if (orderReturnLstDay.isBefore(todayDate)) {
 
-            System.out.println("Sorry Customer This Order Can't return you item return last day missing !!1");
+            return "Sorry Customer This Order Can't return you item return last day missing !!1";
 
         } else{
 
@@ -125,9 +133,10 @@ public class OrderServiceIMPL implements OrderService {
                 int updateQty = qty + Integer.parseInt(returnDto.getQty());
                 itemQty.setQty(String.valueOf(updateQty));
                 sizeRepo.save(itemQty);
+                return "Order Returned";
 
             }else {
-                System.out.println("Sorry Sir You Can order Return One Chanes Only");
+                return "Sorry Sir You Can order Return One Chanes Only";
             }
 
         }
@@ -180,4 +189,51 @@ public class OrderServiceIMPL implements OrderService {
         }
 
     }
+
+    @Override
+    public Double totalSaleGet(String date) {
+        List<OrderEntity> allOrders = orderRepo.findAll();
+        List<Double> allOrderTotal = orderRepo.getAllOrderTotal(date);
+
+        Double totalSale = 0.00;
+        Double totalProfit = 0.00;
+
+        for (Double price :allOrderTotal) {
+            totalSale+=price;
+        }
+        return totalSale;
+    }
+
+    @Override
+    public List<OrderDto> branchWiseOrderDetailsGet(String branch) {
+        List<OrderEntity> allOrders = orderRepo.findAll();
+
+        List<OrderDto> branchWiseOrders = new ArrayList<>();
+
+        for (OrderEntity all:allOrders) {
+            EmployeeEntity employeeEntity = employeeRepo.findById(all.getEmployeeEntity().getEmployeeCode()).orElse(null);
+
+            if (branch.equals(employeeEntity.getAttachedBranch())){
+                branchWiseOrders.add(dataConvert.orderEntityConvertOrderDto(all));
+            }
+        }
+
+        return branchWiseOrders;
+    }
+
+    //TODO
+//
+//    @Override
+//    public String mostSaleItemGet() {
+//      //  String mostSaleItemName = orderRepo.mostSaleItemGet(date);
+//
+//
+//     //   ItemEntity kidsShoes = itemRepo.findByItemDesc("Kids Shoes");
+//
+////        ItemEntity kidsShoes = itemRepo.getItemDescBy("Kids Shoes");
+////
+////        System.out.println(kidsShoes);
+//
+//        return "";
+//    }
 }

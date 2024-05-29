@@ -19,7 +19,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/customer")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://127.0.0.1:5500", methods = {RequestMethod.PATCH, RequestMethod.DELETE ,RequestMethod.POST,RequestMethod.PUT,RequestMethod.GET})
+@CrossOrigin(origins = "http://127.0.0.1:5500", methods = { RequestMethod.PATCH, RequestMethod.DELETE,
+        RequestMethod.POST, RequestMethod.PUT, RequestMethod.GET })
 public class CustomerController {
 
     @Autowired
@@ -28,41 +29,41 @@ public class CustomerController {
     @Autowired
     EmailService emailService;
 
-
-    @RequestMapping(value = "/getAllCustomer",produces = "application/json")
+    @RequestMapping(value = "/getAllCustomer", produces = "application/json")
     @GetMapping(produces = "application/json")
-    public List<CustomerDto> getAllCustomers(){
+    public List<CustomerDto> getAllCustomers() {
         List<CustomerDto> allCustomers = customerService.getAllCustomers();
         return allCustomers;
     }
 
-   @ResponseStatus(HttpStatus.CREATED)
-   @RequestMapping("/save")
-   @PostMapping
-    public String saveCustomer(@RequestBody CustomerDto customerDto){
+    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping("/save")
+    @PostMapping
+    public String saveCustomer(@RequestBody CustomerDto customerDto) {
         customerService.saveCustomer(customerDto);
         return "Save";
     }
 
     @GetMapping(value = "search/{id}")
-    public CustomerDto searchCustomer(@PathVariable ("id") String searchCustomerId){
+    public CustomerDto searchCustomer(@PathVariable("id") String searchCustomerId) {
         CustomerDto customerDto = customerService.searchCustomer(searchCustomerId);
         return customerDto;
     }
 
     @PutMapping(value = "update/{id}")
-    public void updateCustomer(@PathVariable ("id") String updateId , @RequestBody CustomerDto customerDto){
-       customerService.updateCustomer(updateId,customerDto);
+    public void updateCustomer(@PathVariable("id") String updateId, @RequestBody CustomerDto customerDto) {
+        customerService.updateCustomer(updateId, customerDto);
     }
+
     @DeleteMapping(value = "delete/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public String deleteCustomer(@PathVariable ("id") String deleteCustomerId){
+    public String deleteCustomer(@PathVariable("id") String deleteCustomerId) {
         String deleteCustomer = customerService.deleteCustomer(deleteCustomerId);
         return deleteCustomer;
     }
 
     @PostConstruct
-    public void birthdayGreetingsToCustomers(){
+    public void birthdayGreetingsToCustomers() {
         emailService.birthdayGreetingsToCustomers();
     }
 

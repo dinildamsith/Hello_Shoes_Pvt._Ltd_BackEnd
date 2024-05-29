@@ -59,10 +59,10 @@ public class ItemController {
 
         System.out.println(pic);
 
-        String picConvertBase64 = UtilMatters.convertBase64(pic);
+
         itemDto.setItemCode(code);
         itemDto.setItemDesc(desc);
-        itemDto.setItemPic(picConvertBase64);
+        itemDto.setItemPic(pic);
         itemDto.setCategory(category);
         itemDto.setItemType(itemType);
         itemDto.setOccasion(occasion);
@@ -99,9 +99,8 @@ public class ItemController {
         ItemDto itemDto = new ItemDto();
 
 
-        String picConvertBase64 = UtilMatters.convertBase64(pic);
         itemDto.setItemDesc(desc);
-        itemDto.setItemPic(picConvertBase64);
+        itemDto.setItemPic(pic);
         itemDto.setCategory(category);
         itemDto.setItemType(itemType);
         itemDto.setOccasion(occasion);

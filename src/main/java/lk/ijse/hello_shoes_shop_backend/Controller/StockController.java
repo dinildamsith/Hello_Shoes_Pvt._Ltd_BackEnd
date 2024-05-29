@@ -22,4 +22,11 @@ public class StockController {
         List<StockEntity> allStock = stockService.getAllStock();
         return allStock;
     }
+
+    @GetMapping
+    @RequestMapping("/sendInfoItemQty")
+    public List<String> checkItemQtySendInfo(){
+        List<String> itemQtyMassage = stockService.checkItemQtySendInfo();
+        return itemQtyMassage;
+    }
 }

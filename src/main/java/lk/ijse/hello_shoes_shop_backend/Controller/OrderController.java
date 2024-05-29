@@ -3,9 +3,11 @@ package lk.ijse.hello_shoes_shop_backend.Controller;
 import lk.ijse.hello_shoes_shop_backend.Dto.OrderDto;
 import lk.ijse.hello_shoes_shop_backend.Dto.ReturnDto;
 import lk.ijse.hello_shoes_shop_backend.Service.OrderService;
+import lk.ijse.hello_shoes_shop_backend.entity.EmployeeEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.data.repository.query.Param;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -42,6 +44,7 @@ public class OrderController {
 
     @GetMapping
     @RequestMapping("/getAllOrders")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<OrderDto> getAllOrders(){
         List<OrderDto> allOrders = orderService.getAllOrders();
         return allOrders;
@@ -70,9 +73,18 @@ public class OrderController {
 
     @GetMapping
     @RequestMapping("/branchWiseOrderDetailsGet/{branch}")
+    @PreAuthorize("hasRole('ADMIN')")
     public List<OrderDto> branchWiseOrderDetailsGet(@PathVariable ("branch") String branch){
         List<OrderDto> orderDtos = orderService.branchWiseOrderDetailsGet(branch);
         return orderDtos;
+    }
+
+    @GetMapping
+    @RequestMapping("/employeeSaleOrders/{mail}")
+    @PreAuthorize("hasRole('USER')")
+    public List<OrderDto> employeeSaleAllOrdersGet(@PathVariable ("mail") String empMail) {
+        List<OrderDto> employeeSaleOrders = orderService.employeeSaleAllOrdersGet(empMail);
+        return employeeSaleOrders;
     }
 
     //TODO

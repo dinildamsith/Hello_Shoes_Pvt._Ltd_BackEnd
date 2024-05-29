@@ -14,9 +14,6 @@ import java.util.Optional;
 @Repository
 public interface OrderRepo extends JpaRepository<OrderEntity,String> {
 
-    @Query(value = "SELECT orders.*, employee.attachedBranch FROM orders JOIN employee on orders.employeeEntity_employeeCode=employee.employeeCode",nativeQuery = true)
-    List<OrderDto> branchWiseOrderDetailsGet();
-
 
     // TODO
     @Query(value = "SELECT itemDesc FROM orders WHERE purchaseDate = :date GROUP BY itemDesc ORDER BY COUNT(itemDesc) DESC LIMIT 1", nativeQuery = true)

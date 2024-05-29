@@ -221,6 +221,25 @@ public class OrderServiceIMPL implements OrderService {
         return branchWiseOrders;
     }
 
+    @Override
+    public List<OrderDto> employeeSaleAllOrdersGet(String empMail) {
+        String employeeCode = employeeRepo.findByEmail(empMail).getEmployeeCode();
+        List<OrderEntity> allOrders = orderRepo.findAll();
+
+        List<OrderDto> employeeAllSale = new ArrayList<>();
+
+        for (OrderEntity all :allOrders) {
+
+            if (all.getEmployeeEntity().getEmployeeCode().equals(employeeCode)){
+                employeeAllSale.add(dataConvert.orderEntityConvertOrderDto(all));
+            }
+
+        }
+
+
+        return employeeAllSale;
+    }
+
     //TODO
 //
 //    @Override

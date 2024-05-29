@@ -24,6 +24,8 @@ public interface OrderService {
 
     List<OrderDto> branchWiseOrderDetailsGet(String branch);
 
+    List<OrderDto> employeeSaleAllOrdersGet(String empMail);
+
     //TODO
 //    String mostSaleItemGet();
 

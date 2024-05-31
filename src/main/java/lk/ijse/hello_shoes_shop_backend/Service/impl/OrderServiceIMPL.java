@@ -8,6 +8,7 @@ import lk.ijse.hello_shoes_shop_backend.Service.DateServices;
 import lk.ijse.hello_shoes_shop_backend.Service.OrderService;
 import lk.ijse.hello_shoes_shop_backend.convert.DataConvert;
 import lk.ijse.hello_shoes_shop_backend.entity.*;
+import lk.ijse.hello_shoes_shop_backend.enums.Level;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.jaxb.SpringDataJaxb;
 import org.springframework.stereotype.Service;
@@ -64,6 +65,28 @@ public class OrderServiceIMPL implements OrderService {
             orderEntity.setPoints(1);
             totalPoints+=1;
             customerEntity.setTotalPoints(totalPoints);
+
+
+            if (200 < customerEntity.getTotalPoints()){
+                customerEntity.setLevel(Level.GOLD);
+            }else if (100 < customerEntity.getTotalPoints()){
+                customerEntity.setLevel(Level.SILVER);
+            }else if (50 < customerEntity.getTotalPoints()){
+                customerEntity.setLevel(Level.BRONZE);
+            }else if (50 > customerEntity.getTotalPoints()){
+                customerEntity.setLevel(Level.NEW);
+            }
+
+
+//            if (50<customerEntity.getTotalPoints()){
+//                customerEntity.setLevel(Level.BRONZE);
+//            }else if (100 < customerEntity.getTotalPoints()){
+//                customerEntity.setLevel(Level.SILVER);
+//            }else if (200 <customerEntity.getTotalPoints()){
+//                customerEntity.setLevel(Level.GOLD);
+//            }else if (50 > customerEntity.getTotalPoints()){
+//                customerEntity.setLevel(Level.NEW);
+//            }
             customerRepo.save(customerEntity);
        }
         ItemEntity itemEntity2 = orderDto.getBuyItem().get(0);

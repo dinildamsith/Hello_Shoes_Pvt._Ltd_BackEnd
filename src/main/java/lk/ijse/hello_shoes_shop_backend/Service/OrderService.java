@@ -9,7 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 public interface OrderService {
-    void saveOrder(OrderDto orderDto);
+    String saveOrder(OrderDto orderDto);
     String returnOrder(ReturnDto returnDto);
 
     String getLastOrderId();

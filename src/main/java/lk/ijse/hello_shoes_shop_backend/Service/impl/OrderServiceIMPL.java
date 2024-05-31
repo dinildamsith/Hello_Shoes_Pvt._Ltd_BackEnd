@@ -45,7 +45,7 @@ public class OrderServiceIMPL implements OrderService {
     EmployeeRepo employeeRepo;
 
     @Override
-    public void saveOrder(OrderDto orderDto) {
+    public String saveOrder(OrderDto orderDto) {
 
         OrderEntity orderEntity = dataConvert.orderDtoConvertOrderEntity(orderDto);
         orderEntity.setOrderStatus("ORDER CONFIRM");
@@ -67,34 +67,45 @@ public class OrderServiceIMPL implements OrderService {
             customerRepo.save(customerEntity);
        }
         ItemEntity itemEntity2 = orderDto.getBuyItem().get(0);
-        System.out.println(itemEntity2);
-       StockEntity stockEntity = sizeRepo.getItemQty(itemEntity2.getItemCode(), String.valueOf(orderDto.getSize()));
-        System.out.println(stockEntity.getQty());
-        int i = Integer.parseInt(stockEntity.getQty());
-        int x = i-orderDto.getQty();
-        stockEntity.setQty(String.valueOf(x));
+        StockEntity stockEntity = sizeRepo.getItemQty(itemEntity2.getItemCode(), String.valueOf(orderDto.getSize()));
 
-        sizeRepo.save(stockEntity);
+        if (0 < Integer.parseInt(stockEntity.getQty())){
+
+            System.out.println(stockEntity.getQty());
+            int i = Integer.parseInt(stockEntity.getQty());
+            if (i < orderDto.getQty()){
+                    System.out.println("Sorry This Not Available This Quantity in stock");
+                    return "Sorry This Not Available This Quantity in stock";
+            }else{
+                int x = i-orderDto.getQty();
+                stockEntity.setQty(String.valueOf(x));
+
+                sizeRepo.save(stockEntity);
+
+                ItemEntity itemEntity1 = orderDto.getBuyItem().get(0);
+                itemEntity.setItemCode(itemEntity1.getItemCode());
+
+                List<OrderEntity> orderEntityList = new ArrayList<>();
+                List<ItemEntity> itemEntityList = new ArrayList<>();
+
+                orderEntityList.add(orderEntity);
+                itemEntityList.add(itemEntity);
+
+                orderEntity.setBuyItem(itemEntityList);
+                itemEntity.setOrder(orderEntityList);
 
 
-        ItemEntity itemEntity1 = orderDto.getBuyItem().get(0);
-        itemEntity.setItemCode(itemEntity1.getItemCode());
+                customerEntity.setRecentPurchaseDate(orderDto.getPurchaseDate());
 
-        List<OrderEntity> orderEntityList = new ArrayList<>();
-        List<ItemEntity> itemEntityList = new ArrayList<>();
+                customerRepo.save(customerEntity);
+                orderRepo.save(orderEntity);
+                return "Order Placed";
+            }
 
-        orderEntityList.add(orderEntity);
-        itemEntityList.add(itemEntity);
-
-        orderEntity.setBuyItem(itemEntityList);
-        itemEntity.setOrder(orderEntityList);
-
-
-        customerEntity.setRecentPurchaseDate(orderDto.getPurchaseDate());
-
-        customerRepo.save(customerEntity);
-        orderRepo.save(orderEntity);
-
+        }else{
+            System.out.println("This Item Quantity Unavailable Stock");
+            return "This Item Quantity Unavailable Stock";
+        }
 
 
     }
@@ -226,10 +237,16 @@ public class OrderServiceIMPL implements OrderService {
     @Override
     public String mostSaleItemImgGet(Date date) {
 
+
         String mostSaleItemDesc = orderRepo.findMostSaleItemDesc(date);
-        ItemEntity byItemDesc = itemRepo.findByItemDesc(mostSaleItemDesc);
-//        List<OrderEntity> byPurchaseDate = orderRepo.findByPurchaseDate(date);
-        return byItemDesc.getItemPic();
+
+        if (mostSaleItemDesc == null){
+            return null;
+        }else {
+
+            ItemEntity byItemDesc = itemRepo.findByItemDesc(mostSaleItemDesc);
+            return byItemDesc.getItemPic();
+        }
     }
 
     @Override

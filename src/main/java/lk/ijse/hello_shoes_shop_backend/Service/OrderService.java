@@ -22,6 +22,10 @@ public interface OrderService {
 
     Double totalSaleGet(String date);
 
+   int mostSaleItemQtyGet(Date date);
+
+   String mostSaleItemImgGet(Date date);
+
     List<OrderDto> branchWiseOrderDetailsGet(String branch);
 
     List<OrderDto> employeeSaleAllOrdersGet(String empMail);

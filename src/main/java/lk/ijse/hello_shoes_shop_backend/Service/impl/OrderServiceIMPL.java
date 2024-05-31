@@ -205,6 +205,34 @@ public class OrderServiceIMPL implements OrderService {
     }
 
     @Override
+    public int mostSaleItemQtyGet(Date date) {
+
+        String mostSaleItemDesc = orderRepo.findMostSaleItemDesc(date);
+        List<OrderEntity> byPurchaseDate = orderRepo.findByPurchaseDate(date);
+
+        int totalQty = 0;
+
+        for (OrderEntity orderEntity:byPurchaseDate) {
+
+            if (mostSaleItemDesc.equals(orderEntity.getItemDesc())){
+               totalQty+=orderEntity.getQty();
+            }
+
+        }
+
+        return totalQty;
+    }
+
+    @Override
+    public String mostSaleItemImgGet(Date date) {
+
+        String mostSaleItemDesc = orderRepo.findMostSaleItemDesc(date);
+        ItemEntity byItemDesc = itemRepo.findByItemDesc(mostSaleItemDesc);
+//        List<OrderEntity> byPurchaseDate = orderRepo.findByPurchaseDate(date);
+        return byItemDesc.getItemPic();
+    }
+
+    @Override
     public List<OrderDto> branchWiseOrderDetailsGet(String branch) {
         List<OrderEntity> allOrders = orderRepo.findAll();
 

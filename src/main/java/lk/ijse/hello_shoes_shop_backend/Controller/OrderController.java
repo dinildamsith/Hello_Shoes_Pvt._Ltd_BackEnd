@@ -3,13 +3,14 @@ package lk.ijse.hello_shoes_shop_backend.Controller;
 import lk.ijse.hello_shoes_shop_backend.Dto.OrderDto;
 import lk.ijse.hello_shoes_shop_backend.Dto.ReturnDto;
 import lk.ijse.hello_shoes_shop_backend.Service.OrderService;
-import lk.ijse.hello_shoes_shop_backend.entity.EmployeeEntity;
+import lk.ijse.hello_shoes_shop_backend.entity.ItemEntity;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.jaxb.SpringDataJaxb;
-import org.springframework.data.repository.query.Param;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.List;
 
@@ -85,6 +86,33 @@ public class OrderController {
     public List<OrderDto> employeeSaleAllOrdersGet(@PathVariable ("mail") String empMail) {
         List<OrderDto> employeeSaleOrders = orderService.employeeSaleAllOrdersGet(empMail);
         return employeeSaleOrders;
+    }
+
+    @GetMapping
+    @RequestMapping("/mostSaleQty/{date}")
+    public int mostSaleItemQtyGet(@PathVariable ("date") String dateString){
+//        String dateString = "2024-05-23 05:30:00.000000";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+        LocalDateTime localDateTime = LocalDateTime.parse(dateString, formatter);
+
+        // Step 2: Convert LocalDateTime to java.util.Date
+        Date dateVariable = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+
+        int mostSaleItemQty = orderService.mostSaleItemQtyGet(dateVariable);
+        return mostSaleItemQty;
+    }
+
+    @GetMapping
+    @RequestMapping("/mostSaleImg/{date}")
+    public String mostSaleItemImgGet(@PathVariable ("date") String date) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSSSSS");
+        LocalDateTime localDateTime = LocalDateTime.parse(date, formatter);
+
+        // Step 2: Convert LocalDateTime to java.util.Date
+        Date dateVariable = Date.from(localDateTime.atZone(ZoneId.systemDefault()).toInstant());
+
+        String mostSaleItemImg = orderService.mostSaleItemImgGet(dateVariable);
+        return mostSaleItemImg;
     }
 
     //TODO

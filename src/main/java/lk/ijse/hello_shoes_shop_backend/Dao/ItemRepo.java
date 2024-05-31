@@ -22,5 +22,6 @@ public interface ItemRepo extends JpaRepository<ItemEntity,String> {
    List<String> selectItemHasAllSizesGet(String itemId);
 
 
+    ItemEntity findByItemDesc(String desc);
 
 }

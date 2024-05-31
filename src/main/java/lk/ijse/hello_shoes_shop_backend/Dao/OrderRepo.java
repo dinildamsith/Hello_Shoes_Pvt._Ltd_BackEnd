@@ -20,8 +20,13 @@ public interface OrderRepo extends JpaRepository<OrderEntity,String> {
     String mostSaleItemGet(@Param("date") String date);
 
 
+    @Query("SELECT itemDesc FROM OrderEntity  WHERE purchaseDate =?1 GROUP BY itemDesc ORDER BY COUNT(*) DESC LIMIT 1")
+    String findMostSaleItemDesc(Date date);
+
     @Query(value = "SELECT orders.total FROM  orders WHERE orders.purchaseDate=?1",nativeQuery = true)
     List<Double> getAllOrderTotal(String date);
     @Query(value = "SELECT orderCode FROM orders ORDER BY orderCode DESC LIMIT 1", nativeQuery = true)
     String getLastOrderId();
+
+    List<OrderEntity> findByPurchaseDate(Date date);
 }

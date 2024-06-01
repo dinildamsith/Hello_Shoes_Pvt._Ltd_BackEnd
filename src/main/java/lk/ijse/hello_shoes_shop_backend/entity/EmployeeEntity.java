@@ -41,7 +41,7 @@ public class EmployeeEntity implements SuperEntity{
     private String guardianName;
     private String emergencyContact;
 
-    @OneToMany(mappedBy = "employeeEntity")
+    @OneToMany(mappedBy = "employeeEntity",cascade = CascadeType.REMOVE)
     @JsonIgnore
     private List<OrderEntity> sales;
 

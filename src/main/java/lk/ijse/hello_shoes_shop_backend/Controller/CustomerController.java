@@ -50,6 +50,7 @@ public class CustomerController {
         return customerDto;
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PutMapping(value = "update/{id}")
     public void updateCustomer(@PathVariable("id") String updateId, @RequestBody CustomerDto customerDto) {
         customerService.updateCustomer(updateId, customerDto);

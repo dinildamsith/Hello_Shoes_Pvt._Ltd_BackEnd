@@ -55,9 +55,9 @@ public class SupplierServiceIMPL implements SupplierService {
             updatedSupplierEntity.setAddressLine1(updateSupplierDetails.getAddressLine1());
             updatedSupplierEntity.setAddressLine2(updateSupplierDetails.getAddressLine2());
             updatedSupplierEntity.setAddressLine3(updateSupplierDetails.getAddressLine3());
-            updatedSupplierEntity.setAddressLine4(updateSupplierDetails.getAddressLine4());
-            updatedSupplierEntity.setAddressLine5(updateSupplierDetails.getAddressLine5());
-            updatedSupplierEntity.setAddressLine6(updateSupplierDetails.getAddressLine6());
+//            updatedSupplierEntity.setAddressLine4(updateSupplierDetails.getAddressLine4());
+//            updatedSupplierEntity.setAddressLine5(updateSupplierDetails.getAddressLine5());
+//            updatedSupplierEntity.setAddressLine6(updateSupplierDetails.getAddressLine6());
             updatedSupplierEntity.setContact1(updateSupplierDetails.getContact1());
             updatedSupplierEntity.setContact2(updateSupplierDetails.getContact2());
             updatedSupplierEntity.setEmail(updateSupplierDetails.getEmail());

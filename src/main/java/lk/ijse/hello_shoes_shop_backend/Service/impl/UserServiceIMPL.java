@@ -5,6 +5,7 @@ import lk.ijse.hello_shoes_shop_backend.Dao.UserRepo;
 import lk.ijse.hello_shoes_shop_backend.Dto.UserDto;
 import lk.ijse.hello_shoes_shop_backend.Service.UserService;
 import lk.ijse.hello_shoes_shop_backend.convert.DataConvert;
+import lk.ijse.hello_shoes_shop_backend.exception.NotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -26,7 +27,7 @@ public class UserServiceIMPL implements UserService {
     public UserDetailsService userDetailsService() {
         return username ->
                 userRepo.findByEmail(username)
-                        .orElseThrow(() -> new UsernameNotFoundException("User Not Found"));
+                        .orElseThrow(() -> new NotFoundException("User Not Found"));
     }
 
     @Override

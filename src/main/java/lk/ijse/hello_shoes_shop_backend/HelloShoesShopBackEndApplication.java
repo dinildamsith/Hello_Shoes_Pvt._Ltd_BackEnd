@@ -1,6 +1,7 @@
 package lk.ijse.hello_shoes_shop_backend;
 
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -16,7 +17,6 @@ public class HelloShoesShopBackEndApplication {
     ModelMapper mapper(){
         return new ModelMapper();
     }
-
 
 
     public static void main(String[] args) {

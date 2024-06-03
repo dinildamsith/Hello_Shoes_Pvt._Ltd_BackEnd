@@ -57,8 +57,6 @@ public class ItemController {
 
         ItemDto itemDto = new ItemDto();
 
-        System.out.println(pic);
-
 
         itemDto.setItemCode(code);
         itemDto.setItemDesc(desc);

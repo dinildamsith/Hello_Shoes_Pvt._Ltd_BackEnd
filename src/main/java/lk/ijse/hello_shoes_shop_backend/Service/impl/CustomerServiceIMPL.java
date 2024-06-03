@@ -75,7 +75,6 @@ public class CustomerServiceIMPL implements CustomerService {
             updateCustomer.setContactNumber(updateCustomerDetailsDto.getContactNumber());
             updateCustomer.setEmail(updateCustomerDetailsDto.getEmail());
 
-            System.out.println(updateCustomer);
             customerRepo.save(updateCustomer);
             logger.info("Customer Update Success");
             return "Update Customer";

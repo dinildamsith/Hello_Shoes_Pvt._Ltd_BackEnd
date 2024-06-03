@@ -6,6 +6,8 @@ import lk.ijse.hello_shoes_shop_backend.Service.CustomerService;
 import lk.ijse.hello_shoes_shop_backend.convert.DataConvert;
 import lk.ijse.hello_shoes_shop_backend.entity.CustomerEntity;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -25,16 +27,19 @@ public class CustomerServiceIMPL implements CustomerService {
     CustomerRepo customerRepo;
 
 
+    Logger logger = LoggerFactory.getLogger(CustomerServiceIMPL.class);
+
     @Override
     public List<CustomerDto> getAllCustomers() {
         List<CustomerDto> allCustomers = dataConvert.customerEntityListConvertCustomerDtoList(customerRepo.findAll());
-
+        logger.info("Customer Get All Successes");
         return allCustomers;
     }
 
     @Override
     public void saveCustomer(CustomerDto customerDto) {
         customerRepo.save(dataConvert.customerDtoConvertCustomerEntity(customerDto));
+        logger.info("Customer Save Done");
     }
 
     @Override
@@ -43,9 +48,10 @@ public class CustomerServiceIMPL implements CustomerService {
         CustomerEntity searchCustomer = customerRepo.findById(searchCustomerId).orElse(null);
 
         if (searchCustomer != null) {
+            logger.info("Customer Search Success");
             return dataConvert.customerEntityConvertCustomerDto(searchCustomer);
         } else {
-            System.out.println("id have no customer");
+            logger.info("This Id Have No Customer");
         }
         return null;
     }
@@ -71,8 +77,10 @@ public class CustomerServiceIMPL implements CustomerService {
 
             System.out.println(updateCustomer);
             customerRepo.save(updateCustomer);
+            logger.info("Customer Update Success");
             return "Update Customer";
         } else {
+            logger.info("This Id Have No Customer");
             return "This Id Have Not Customer";
         }
     }
@@ -83,7 +91,9 @@ public class CustomerServiceIMPL implements CustomerService {
 
         if (checkIdHaveCustomer) {
             customerRepo.deleteById(deleteCustomerId);
+            logger.info("Customer Delete Success");
         } else {
+            logger.info("This Id Have No Customer");
             return "This Id Have No Customer";
         }
         return null;

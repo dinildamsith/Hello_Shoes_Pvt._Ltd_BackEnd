@@ -11,6 +11,8 @@ import lk.ijse.hello_shoes_shop_backend.entity.ItemEntity;
 import lk.ijse.hello_shoes_shop_backend.entity.StockEntity;
 
 import lk.ijse.hello_shoes_shop_backend.entity.SupplierEntity;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,10 +35,12 @@ public class ItemServiceIMPL implements ItemService {
     @Autowired
     SizeRepo sizeRepo;
 
+    Logger logger = LoggerFactory.getLogger(ItemServiceIMPL.class);
 
     @Override
     public List<ItemDto> getAllItems() {
         List<ItemEntity> all = itemRepo.findAll();
+        logger.info("Items All Get Success");
         return dataConvert.itemEntityListConvertItemDtoList(all);
     }
 
@@ -145,9 +149,12 @@ public class ItemServiceIMPL implements ItemService {
             itemRepo.save(itemEntity);
             sizeRepo.save(stockEntity);
 
+            logger.info("Item Save Success");
+            logger.info("Item Have Stock Save Success");
+
         }else{
 
-            System.out.println("This Id Have No Supplier");
+            logger.info("This Id Have No Supplier");
         }
 
     }
@@ -229,20 +236,36 @@ public class ItemServiceIMPL implements ItemService {
 
 
             itemRepo.save(updateItemEntity);
+            logger.info("Item Details Update Success");
         }else{
-            System.out.println("this id have no Supplier");
+            logger.info("This id have no Supplier");
         }
     }
 
     @Override
     public void deleteItem(String deleteItemId) {
-        itemRepo.deleteById(deleteItemId);
+        ItemEntity itemEntity = itemRepo.findById(deleteItemId).orElse(null);
+
+        if (itemEntity != null){
+            itemRepo.deleteById(deleteItemId);
+        }else {
+            logger.info("This Id Have No Item");
+        }
+
     }
 
     @Override
     public ItemDto searchItem(String searchItemId) {
         ItemEntity itemEntity = itemRepo.findById(searchItemId).orElse(null);
-        return dataConvert.itemEntityConvertItemDto(itemEntity);
+
+        if (itemEntity != null){
+            return dataConvert.itemEntityConvertItemDto(itemEntity);
+        }else {
+            logger.info("This Id Have No Item");
+            return null;
+        }
+
+
     }
 
     @Override

@@ -11,6 +11,8 @@ import lk.ijse.hello_shoes_shop_backend.convert.DataConvert;
 import lk.ijse.hello_shoes_shop_backend.entity.EmployeeEntity;
 import lk.ijse.hello_shoes_shop_backend.entity.UserEntity;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -37,9 +39,12 @@ public class EmployeeServiceIMPL implements EmployeeService {
     @Autowired
     DataConvert dataConvert;
 
+    Logger logger = LoggerFactory.getLogger(EmailServiceIMPL.class);
+
     @Override
     public List<EmployeeDto> getAllEmployees() {
         List<EmployeeEntity> allEmployees = employeeRepo.findAll();
+        logger.info("Employees Get All Success");
         return dataConvert.employeeEntityListConvertEmployeeDtoList(allEmployees);
 
     }
@@ -73,9 +78,11 @@ public class EmployeeServiceIMPL implements EmployeeService {
             mailDto.setMsg("Token : "+token + "\n" + "Password  : " + password + "\n"+ "Email  : " + employeeDto.getEmail());
             Thread thread = new Thread(mailDto);
             thread.start();
+            logger.info("Employee Save Success");
+            logger.info("Employee User Account Registered Success");
             return "Employee Save Done.";
         } else {
-            System.out.println("Employee save unsuccessful");
+            logger.info("Employee save unsuccessful");
         }
 
         return null;
@@ -87,9 +94,10 @@ public class EmployeeServiceIMPL implements EmployeeService {
     public EmployeeDto searchEmployee(String searchEmployeeId) {
         EmployeeEntity employeeEntity = employeeRepo.findById(searchEmployeeId).orElse(null);
         if (employeeEntity !=null){
+            logger.info("Employee Search Success");
             return dataConvert.employeeEntityConvertEmployeeDto(employeeEntity);
         }else {
-            System.out.println("this id have no supplier");
+            logger.info("This id have no supplier");
         }return null;
 
     }
@@ -122,6 +130,8 @@ public class EmployeeServiceIMPL implements EmployeeService {
 
             employeeRepo.save(employeeEntity);
             userRepo.save(userEntity);
+            logger.info("Employee Update Success");
+            logger.info("Employee User Account Update Success");
         }
     }
 
@@ -132,10 +142,13 @@ public class EmployeeServiceIMPL implements EmployeeService {
 
 
         if (userEntity == null && employeeEntity == null){
+            logger.info("This Id Have No Employee");
             return "this Id have no Employee";
         }else{
             userRepo.delete(userEntity);
             employeeRepo.delete(employeeEntity);
+            logger.info("Employee Delete Success");
+            logger.info("Delete Employee User Account Deleted Success");
             return "Delete Employee";
         }
 

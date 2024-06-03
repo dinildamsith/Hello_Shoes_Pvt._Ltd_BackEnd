@@ -6,6 +6,8 @@ import lk.ijse.hello_shoes_shop_backend.Service.SupplierService;
 import lk.ijse.hello_shoes_shop_backend.convert.DataConvert;
 import lk.ijse.hello_shoes_shop_backend.entity.SupplierEntity;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -23,13 +25,17 @@ public class SupplierServiceIMPL implements SupplierService {
     @Autowired
     DataConvert dataConvert;
 
+    Logger logger = LoggerFactory.getLogger(SupplierServiceIMPL.class);
+
     @Override
     public List<SupplierDto> getAllSuppliers() {
+        logger.info("Get All Suppliers Success");
         return dataConvert.supplierEntityListConvertSupplierDtoList(supplierRepo.findAll());
     }
 
     @Override
     public void saveSupplier(SupplierDto supplierDto) {
+        logger.info("Supplier Save Success");
         supplierRepo.save(dataConvert.supplierDtoConvertSupplierEntity(supplierDto));
     }
 
@@ -38,10 +44,11 @@ public class SupplierServiceIMPL implements SupplierService {
         boolean existsBySupplierId = supplierRepo.existsById(searchSupplierId);
 
         if (existsBySupplierId){
+            logger.info("Supplier Search Success");
             SupplierEntity supplierEntity = supplierRepo.findById(searchSupplierId).get();
             return dataConvert.supplierEntityConvertSupplierDto(supplierEntity);
         }else {
-            System.out.println("This Id Have nO Customer");
+            logger.info("This Id Have no Supplier");
         }
         return null;
     }
@@ -63,9 +70,11 @@ public class SupplierServiceIMPL implements SupplierService {
             updatedSupplierEntity.setEmail(updateSupplierDetails.getEmail());
 
             supplierRepo.save(updatedSupplierEntity);
-            return "Update Customer";
+            logger.info("Supplier Update Success");
+            return "Update Supplier Success";
         }else {
-            return "This Id Have No Customer";
+            logger.info("This Id Have No Supplier");
+            return "This Id Have No Supplier";
         }
 
     }
@@ -75,9 +84,11 @@ public class SupplierServiceIMPL implements SupplierService {
         boolean existsBySupplierId = supplierRepo.existsById(deleteSupplierId);
         if (existsBySupplierId){
             supplierRepo.deleteById(deleteSupplierId);
+            logger.info("Supplier Delete Success");
             return "Supplier DELETED";
         }else {
-           return  "This Id Have No Customer";
+            logger.info("This Id Have No Supplier");
+           return  "This Id Have No Supplier";
         }
 
     }
